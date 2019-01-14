@@ -38,6 +38,9 @@ namespace Missile_Command
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 500 *2;
+            graphics.PreferredBackBufferHeight = 500 *2;
+            
             Content.RootDirectory = "Content";
         }
 
