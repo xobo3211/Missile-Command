@@ -21,9 +21,19 @@ namespace Missile_Command
 
         Texture2D explosionTexture;
 
+        Vector2 leftBasePosition;
+        Vector2 middleBasePosition;
+        Vector2 rightBasePosition;
+
+        float slowMissileSpeed = 2f;
+        float fastMissileSpeed = 5f;
+
         List<Missile> missiles;
         List<Explosion> activeExplosions;
         List<Explosion> shrinkingExplosions;
+
+        MouseState m;
+        KeyboardState oldKb;
 
         public Game1()
         {
@@ -41,9 +51,20 @@ namespace Missile_Command
         {
             // TODO: Add your initialization logic here
 
+            IsMouseVisible = true;
+
+
             missiles = new List<Missile>(20);
             activeExplosions = new List<Explosion>(20);
             shrinkingExplosions = new List<Explosion>(20);
+
+            leftBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.15f, GraphicsDevice.Viewport.Height - 50);
+            middleBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.5f, GraphicsDevice.Viewport.Height - 50);
+            rightBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.85f, GraphicsDevice.Viewport.Height - 50);
+
+
+            m = Mouse.GetState();
+            oldKb = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -60,8 +81,6 @@ namespace Missile_Command
             // TODO: use this.Content to load your game content here
 
             explosionTexture = Content.Load<Texture2D>("EFX/efx_explosion_b_0001");
-            
-            missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), new Vector2(0, 0), new Vector2(2, 2), new Circle(new Vector2(300, 300), 3)));
         }
 
         /// <summary>
@@ -81,12 +100,38 @@ namespace Missile_Command
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
-            
-            for(int i = 0; i < missiles.Count; i++)
+
+            KeyboardState kb = Keyboard.GetState();
+
+            m = Mouse.GetState();
+
+            ///////////////////////////////////////////////     Firing Logic
+
+            if(kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A))
+            {
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), leftBasePosition, slowMissileSpeed, new Vector2(m.X, m.Y)));
+            }
+
+            if(kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S))
+            {
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), middleBasePosition, fastMissileSpeed, new Vector2(m.X, m.Y)));
+            }
+
+            if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D))
+            {
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), rightBasePosition, slowMissileSpeed, new Vector2(m.X, m.Y)));
+            }
+
+
+
+
+            ///////////////////////////////////////////////     Update Logic
+
+            for (int i = 0; i < missiles.Count; i++)
             {
                 missiles[i].Update();
                 if(missiles[i].willExplode)
@@ -119,6 +164,8 @@ namespace Missile_Command
                     i--;
                 }
             }
+
+            oldKb = kb;
 
             base.Update(gameTime);
         }

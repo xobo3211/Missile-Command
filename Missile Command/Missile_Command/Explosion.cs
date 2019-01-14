@@ -19,7 +19,7 @@ namespace Missile_Command
         float defaultExplosionRadius = 10f;      //Sets beginning explosion radius
         float maxExplosionRadius = 40f;         //Sets maximum explosion radius before disposal
         float expansionSpeed = 0.5f;            //Speed explosion expands
-        float shrinkSpeed = 0.7f;
+        float shrinkSpeed = 0.7f;               //Speed explosion shrinks
 
         public bool finishedExpanding           //Detects if the explosion is finished expanding
         {

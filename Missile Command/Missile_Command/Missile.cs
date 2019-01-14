@@ -43,6 +43,27 @@ namespace Missile_Command
             rotation = (float)Math.Atan((double)(endPos.center.Y - startPos.Y / endPos.center.X - startPos.X));
         }
 
+        public Missile(Texture2D texture, Vector2 startPos, float velocity, Vector2 endPos)
+        {
+            this.texture = texture;
+            position = startPos;
+
+            if (startPos.X > endPos.X)
+                rotation = (float)Math.Atan((double)((endPos.Y - startPos.Y) / (endPos.X - startPos.X)));
+
+            else rotation = (float)Math.Atan((double)(startPos.Y - endPos.Y) / (startPos.X - endPos.X));
+
+            this.velocity = new Vector2(velocity * (float)Math.Cos(rotation), velocity * (float)Math.Sin(rotation));
+
+            if(startPos.X > endPos.X)
+            {
+                this.velocity *= -1;
+            }
+
+
+            this.endPos = new Circle(endPos, velocity);
+        }
+
         public void Update()
         {
             position += velocity;
