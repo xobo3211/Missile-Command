@@ -57,6 +57,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bomber.cs" />
     <Compile Include="Circle.cs" />
     <Compile Include="Explosion.cs" />
     <Compile Include="Missile.cs" />
