@@ -1,0 +1,18 @@
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Content\missle base.xnb
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\MC_missle_location.exe
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\MC_missle_location.pdb
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.dll
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Game.dll
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.dll
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.dll
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.dll
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.xml
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Game.xml
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\obj\x86\Debug\MC_missle_location.csprojResolveAssemblyReference.cache
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\obj\x86\Debug\MC_missle_location.exe
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\obj\x86\Debug\MC_missle_location.pdb
+E:\VGD\missile command\MC missle location\MC missle location\MC_missle_location\bin\x86\Debug\Content\Star.xnb
