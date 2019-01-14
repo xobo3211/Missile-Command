@@ -19,9 +19,11 @@ namespace Missile_Command
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Missile testMissile;
-
         Texture2D explosionTexture;
+
+        List<Missile> missiles;
+        List<Explosion> activeExplosions;
+        List<Explosion> shrinkingExplosions;
 
         public Game1()
         {
@@ -39,6 +41,10 @@ namespace Missile_Command
         {
             // TODO: Add your initialization logic here
 
+            missiles = new List<Missile>(20);
+            activeExplosions = new List<Explosion>(20);
+            shrinkingExplosions = new List<Explosion>(20);
+
             base.Initialize();
         }
 
@@ -52,6 +58,10 @@ namespace Missile_Command
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            explosionTexture = Content.Load<Texture2D>("EFX/efx_explosion_b_0001");
+            
+            missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), new Vector2(0, 0), new Vector2(2, 2), new Circle(new Vector2(300, 300), 3)));
         }
 
         /// <summary>
@@ -75,6 +85,40 @@ namespace Missile_Command
                 this.Exit();
 
             // TODO: Add your update logic here
+            
+            for(int i = 0; i < missiles.Count; i++)
+            {
+                missiles[i].Update();
+                if(missiles[i].willExplode)
+                {
+                    activeExplosions.Add(missiles[i].Detonate());
+                    missiles.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for(int i = 0; i < activeExplosions.Count; i++)
+            {
+                activeExplosions[i].Update();
+
+                if(activeExplosions[i].finishedExpanding)
+                {
+                    shrinkingExplosions.Add(activeExplosions[i]);
+                    activeExplosions.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for(int i = 0; i < shrinkingExplosions.Count; i++)
+            {
+                shrinkingExplosions[i].Shrink();
+
+                if(shrinkingExplosions[i].finishedShrinking)
+                {
+                    shrinkingExplosions.RemoveAt(i);
+                    i--;
+                }
+            }
 
             base.Update(gameTime);
         }
@@ -85,9 +129,28 @@ namespace Missile_Command
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
+
+            spriteBatch.Begin();
+
+            for(int i = 0; i < missiles.Count; i++)
+            {
+                missiles[i].Draw(spriteBatch);
+            }
+
+            for(int i = 0; i < activeExplosions.Count; i++)
+            {
+                activeExplosions[i].Draw(spriteBatch, explosionTexture);
+            }
+
+            for(int i = 0; i < shrinkingExplosions.Count; i++)
+            {
+                shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

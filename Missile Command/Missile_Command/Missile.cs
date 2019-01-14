@@ -20,12 +20,25 @@ namespace Missile_Command
 
         Texture2D texture;
 
-        float rotation, missileSize;
+        float rotation;
+        int missileWidth = 3;                       //Width of missile
+        int missileLength = 5;                      //Length of Missile
 
-        public Missile(Vector2 startPos, Vector2 velocity, Circle endPos)
+        public bool willExplode                 //Returns whether or not it is time for the missile to detonate
         {
+            get
+            {
+                return endPos.Contains(position);       //If the missile's position is within the endPos circle, return true
+            }
+        }
+
+        public Missile(Texture2D texture, Vector2 startPos, Vector2 velocity, Circle endPos)
+        {
+            this.texture = texture;
             position = startPos;
             this.velocity = velocity;
+
+            this.endPos = endPos;
 
             rotation = (float)Math.Atan((double)(endPos.center.Y - startPos.Y / endPos.center.X - startPos.X));
         }
@@ -36,14 +49,19 @@ namespace Missile_Command
 
         }
 
-        public Circle Detonate(float explosionStartRadius)
+        public Explosion Detonate()
         {
-            return new Circle(position, explosionStartRadius);
+            return new Explosion(position);
         }
 
-        public void Draw(SpriteBatch b, Texture texture)
+        public Explosion Detonate(float explosionStartRadius)
         {
-            b.Draw(texture, new Rectangle(position.X - missileSize/2))
+            return new Explosion(position, explosionStartRadius);
+        }
+
+        public void Draw(SpriteBatch b)
+        {
+            b.Draw(texture, new Rectangle((int)position.X - missileWidth / 2, (int)position.Y - missileLength / 2, missileWidth, missileLength), null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }

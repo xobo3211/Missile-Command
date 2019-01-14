@@ -1,6 +1,231 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>2D\anti_missile.png</Source>
+      <Name>2D\anti_missile</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\anti_missile.xnb</Output>
+      <Time>2019-01-10T11:39:57.2173764-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\anti_missile_path.png</Source>
+      <Name>2D\anti_missile_path</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\anti_missile_path.xnb</Output>
+      <Time>2019-01-10T11:39:57.2329765-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\bg.png</Source>
+      <Name>2D\bg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\bg.xnb</Output>
+      <Time>2019-01-10T11:39:57.2485766-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\bg_resequ_crosshair.png</Source>
+      <Name>2D\bg_resequ_crosshair</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\bg_resequ_crosshair.xnb</Output>
+      <Time>2019-01-10T11:39:57.2641767-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\bridge.png</Source>
+      <Name>2D\bridge</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\bridge.xnb</Output>
+      <Time>2019-01-10T11:39:57.2641767-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\city01.png</Source>
+      <Name>2D\city01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\city01.xnb</Output>
+      <Time>2019-01-10T11:39:57.2797768-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\city02.png</Source>
+      <Name>2D\city02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\city02.xnb</Output>
+      <Time>2019-01-10T11:39:57.2797768-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\city03.png</Source>
+      <Name>2D\city03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\city03.xnb</Output>
+      <Time>2019-01-10T11:39:57.2953769-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\city04.png</Source>
+      <Name>2D\city04</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\city04.xnb</Output>
+      <Time>2019-01-10T11:39:57.2953769-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\city05.png</Source>
+      <Name>2D\city05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\city05.xnb</Output>
+      <Time>2019-01-10T11:39:57.1705761-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\missile_large.png</Source>
+      <Name>2D\missile_large</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\missile_large.xnb</Output>
+      <Time>2019-01-10T11:39:57.1861762-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\missile_medium.png</Source>
+      <Name>2D\missile_medium</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\missile_medium.xnb</Output>
+      <Time>2019-01-10T11:39:57.1861762-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\missile_path.png</Source>
+      <Name>2D\missile_path</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\missile_path.xnb</Output>
+      <Time>2019-01-10T11:39:57.2017763-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\missile_small.png</Source>
+      <Name>2D\missile_small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\missile_small.xnb</Output>
+      <Time>2019-01-10T11:39:57.2173764-06:00</Time>
+    </Item>
+    <Item>
+      <Source>2D\water.png</Source>
+      <Name>2D\water</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\2D\water.xnb</Output>
+      <Time>2019-01-10T11:39:57.2173764-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0001.png</Source>
+      <Name>EFX\efx_explosion_b_0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0001.xnb</Output>
+      <Time>2019-01-10T11:40:13.96909-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0002.png</Source>
+      <Name>EFX\efx_explosion_b_0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0002.xnb</Output>
+      <Time>2019-01-10T11:40:13.96909-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0003.png</Source>
+      <Name>EFX\efx_explosion_b_0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0003.xnb</Output>
+      <Time>2019-01-10T11:40:13.9846901-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0004.png</Source>
+      <Name>EFX\efx_explosion_b_0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0004.xnb</Output>
+      <Time>2019-01-10T11:40:13.9846901-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0005.png</Source>
+      <Name>EFX\efx_explosion_b_0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0005.xnb</Output>
+      <Time>2019-01-10T11:40:13.9846901-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0006.png</Source>
+      <Name>EFX\efx_explosion_b_0006</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0006.xnb</Output>
+      <Time>2019-01-10T11:40:14.0002902-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0007.png</Source>
+      <Name>EFX\efx_explosion_b_0007</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0007.xnb</Output>
+      <Time>2019-01-10T11:40:14.0002902-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0008.png</Source>
+      <Name>EFX\efx_explosion_b_0008</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0008.xnb</Output>
+      <Time>2019-01-10T11:40:14.0158903-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0009.png</Source>
+      <Name>EFX\efx_explosion_b_0009</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0009.xnb</Output>
+      <Time>2019-01-10T11:40:13.9534899-06:00</Time>
+    </Item>
+    <Item>
+      <Source>EFX\efx_explosion_b_0010.png</Source>
+      <Name>EFX\efx_explosion_b_0010</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0010.xnb</Output>
+      <Time>2019-01-10T11:40:13.9534899-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{8A050CEB-FC49-4CCB-AA1C-ACF460D15482}</ContentProjectGUID>
@@ -8,12 +233,36 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\238948\Desktop\Video Game Design\Missile Command\Missile Command\Missile_CommandContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\238948\Desktop\Video Game Design\Missile Command\Missile Command\Missile_Command\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\238948\Desktop\Video Game Design\Missile Command\Missile Command\Missile_Command\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\238948\Desktop\Video Game Design\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_CommandContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30-05:00</Value>
+      </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
         <Value>2017-05-17T12:17:11.6083928-05:00</Value>

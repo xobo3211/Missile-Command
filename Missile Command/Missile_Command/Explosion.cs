@@ -16,7 +16,26 @@ namespace Missile_Command
 
         Circle hitbox;
 
-        float defaultExplosionRadius = 5f, maxExplosionRadius = 25f;
+        float defaultExplosionRadius = 10f;      //Sets beginning explosion radius
+        float maxExplosionRadius = 40f;         //Sets maximum explosion radius before disposal
+        float expansionSpeed = 0.5f;            //Speed explosion expands
+        float shrinkSpeed = 0.7f;
+
+        public bool finishedExpanding           //Detects if the explosion is finished expanding
+        {
+            get
+            {
+                return maxExplosionRadius <= hitbox.radius;         //Compares current explosion size to max explosion size
+            }
+        }
+
+        public bool finishedShrinking
+        {
+            get
+            {
+                return hitbox.radius <= defaultExplosionRadius;
+            }
+        }
 
         public Explosion(Vector2 pos)
         {
@@ -30,7 +49,12 @@ namespace Missile_Command
 
         public void Update()
         {
-            hitbox.radius++;
+            hitbox.radius += expansionSpeed;
+        }
+
+        public void Shrink()
+        {
+            hitbox.radius -= shrinkSpeed;
         }
 
         public void Draw(SpriteBatch b, Texture2D texture)
