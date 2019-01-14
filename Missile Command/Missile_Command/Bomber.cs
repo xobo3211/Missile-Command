@@ -11,14 +11,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Missile_Command
 {
-    public class bomber
+    public class Bomber
     {
         public int points;
         public int speed;
         public int x;
         public int y;
         public int level;
-        public bomber(Texture2D t, int l)
+        public Bomber(Texture2D t, int l)
         {
             level = l;
 
