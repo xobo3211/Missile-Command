@@ -46,11 +46,7 @@ namespace Missile_Command
 
         int minFiringHeight = 120;           //Height in pixels above the bottom of screen that you can begin firing playerMissiles from
 
-        int level;
-        int points;
-        int enemyMissilesLeft;
-        int enemyFireTimer;
-        float enemyMissileSpeed = 1.3f;
+
 
         public Game1()
         {
@@ -109,10 +105,10 @@ namespace Missile_Command
             baseHitboxes[1] = new Circle(Global.middleBasePosition, baseHitboxSize);
             baseHitboxes[2] = new Circle(Global.rightBasePosition, baseHitboxSize);
 
-            level = 1;
-            points = 0;
-            enemyMissilesLeft = 10;
-            enemyFireTimer = 0;
+            Global.level = 1;
+            Global.points = 0;
+            Global.enemyMissilesLeft = 10;
+            Global.enemyFireTimer = 0;
 
 
             base.Initialize();
@@ -180,19 +176,19 @@ namespace Missile_Command
 
                 if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.leftBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[0]--;
                 }
 
                 if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.middleBasePosition, Global.fastMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[1]--;
                 }
 
                 if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.rightBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[2]--;
                 }
 
@@ -202,19 +198,19 @@ namespace Missile_Command
 
             //Place enemy AI logic here
 
-            if(enemyMissilesLeft > 0 && enemyFireTimer <= 0)
+            if(Global.enemyMissilesLeft > 0 && Global.enemyFireTimer <= 0)
             {
                 Random rn = new Random();
 
                 int missilesFired = rn.Next(4) + 1;
-                enemyMissilesLeft -= missilesFired;
+                Global.enemyMissilesLeft -= missilesFired;
 
                 for(int i = 0; i < missilesFired; i++)
                 {
-                    enemyMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), enemyMissileSpeed, baseHitboxes[rn.Next(3)].center));
+                    enemyMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), Global.enemyMissileSpeed, baseHitboxes[rn.Next(3)].center));
                 }
 
-                enemyFireTimer = rn.Next(240) + 120;
+                Global.enemyFireTimer = rn.Next(240) + 120;
             }
 
 
