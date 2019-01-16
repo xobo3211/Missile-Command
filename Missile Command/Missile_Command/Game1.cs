@@ -22,13 +22,6 @@ namespace Missile_Command
 
         Texture2D explosionTexture;
 
-        Vector2 leftBasePosition;
-        Vector2 middleBasePosition;
-        Vector2 rightBasePosition;
-
-        float slowMissileSpeed = 2f;
-        float fastMissileSpeed = 5f;
-
         List<Missile> missiles;
         List<Explosion> expandingExplosions;
         List<Explosion> shrinkingExplosions;
@@ -76,11 +69,6 @@ namespace Missile_Command
             expandingExplosions = new List<Explosion>(20);
             shrinkingExplosions = new List<Explosion>(20);
 
-            //Holds the position of the bases that the missiles are fired from
-            leftBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.15f, GraphicsDevice.Viewport.Height - 50);
-            middleBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.5f, GraphicsDevice.Viewport.Height - 50);
-            rightBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.85f, GraphicsDevice.Viewport.Height - 50);
-
             //Controls
             m = Mouse.GetState();
             oldKb = Keyboard.GetState();
@@ -105,9 +93,9 @@ namespace Missile_Command
             float baseHitboxSize = 50f;                                                                           //Radius of circular base hitbox
 
             baseHitboxes = new Circle[3];
-            baseHitboxes[0] = new Circle(leftBasePosition, baseHitboxSize);
-            baseHitboxes[1] = new Circle(middleBasePosition, baseHitboxSize);
-            baseHitboxes[2] = new Circle(rightBasePosition, baseHitboxSize);
+            baseHitboxes[0] = new Circle(Global.leftBasePosition, baseHitboxSize);
+            baseHitboxes[1] = new Circle(Global.middleBasePosition, baseHitboxSize);
+            baseHitboxes[2] = new Circle(Global.rightBasePosition, baseHitboxSize);
 
 
             base.Initialize();
@@ -172,19 +160,19 @@ namespace Missile_Command
 
             if(kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && missilesLeft[0] > 0 && !basesDisabled[0])
             {
-                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), leftBasePosition, slowMissileSpeed, new Vector2(m.X, m.Y)));
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.leftBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
                 missilesLeft[0]--;
             }
 
             if(kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && missilesLeft[1] > 0 && !basesDisabled[1])
             {
-                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), middleBasePosition, fastMissileSpeed, new Vector2(m.X, m.Y)));
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.middleBasePosition, Global.fastMissileSpeed, new Vector2(m.X, m.Y)));
                 missilesLeft[1]--;
             }
 
             if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && missilesLeft[2] > 0 && !basesDisabled[2])
             {
-                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), rightBasePosition, slowMissileSpeed, new Vector2(m.X, m.Y)));
+                missiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.rightBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
                 missilesLeft[2]--;
             }
 
