@@ -74,9 +74,9 @@ namespace Missile_Command
             shrinkingExplosions = new List<Explosion>(20);
 
             //Holds the position of the bases that the missiles are fired from
-            leftBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.15f, GraphicsDevice.Viewport.Height - 50);
-            middleBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.5f, GraphicsDevice.Viewport.Height - 50);
-            rightBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.85f, GraphicsDevice.Viewport.Height - 50);
+            leftBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.05f, GraphicsDevice.Viewport.Height - 95);
+            middleBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.45f, GraphicsDevice.Viewport.Height - 95);
+            rightBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.88f, GraphicsDevice.Viewport.Height - 95);
 
             //Controls
             m = Mouse.GetState();
@@ -86,9 +86,9 @@ namespace Missile_Command
             missilePos = new Rectangle[3];
             int framsX = GraphicsDevice.Viewport.Width;
             int framsY = GraphicsDevice.Viewport.Height;
-            missilePos[0] = new Rectangle(0, framsY - 100, 125, 100);
-            missilePos[1] = new Rectangle((framsX / 2) - 100, framsY - 100, 125, 100);
-            missilePos[2] = new Rectangle(framsX - 125, framsY - 100, 125, 100);
+            missilePos[0] = new Rectangle((int)leftBasePosition.X - 50, (int)leftBasePosition.Y, 125, 100);
+            missilePos[1] = new Rectangle((int)middleBasePosition.X -50, (int)middleBasePosition.Y, 125, 100);
+            missilePos[2] = new Rectangle((int)rightBasePosition.X, (int)rightBasePosition.Y, 125, 100);
             land1 = new Rectangle(missilePos[0].X + missilePos[0].Width, missilePos[0].Y + (int)(missilePos[0].Width / 5),
                         Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
             land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
@@ -288,12 +288,12 @@ namespace Missile_Command
                 shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
             }
             //bases
-            //for (int i = 0; i < missilePos.Length; i++)
-            //{
-            //    spriteBatch.Draw(missileBase, missilePos[i], Color.White);
-            //}
-            //spriteBatch.Draw(L, land1, Color.Gold);
-            //spriteBatch.Draw(L, land2, Color.Gold);
+            for (int i = 0; i < missilePos.Length; i++)
+            {
+                spriteBatch.Draw(missileBase, missilePos[i], Color.White);
+            }
+            spriteBatch.Draw(L, land1, Color.Gold);
+            spriteBatch.Draw(L, land2, Color.Gold);
 
             spriteBatch.End();
 
