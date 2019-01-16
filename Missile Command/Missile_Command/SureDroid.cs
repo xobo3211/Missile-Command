@@ -785,6 +785,11 @@ namespace SureDroid
             //spriteBatch = new SpriteBatch(game.GraphicsDevice);
         }
 
+        public static Texture2D getTexture(String fileName)
+        {
+            return Useful.game.Content.Load<Texture2D>(fileName);
+        }
+
         /// <summary>
         /// Converts a two dimentional color array to an one dimentional color array.
         /// </summary>
