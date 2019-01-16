@@ -17,10 +17,16 @@ namespace Missile_Command
         public int speed;
         public int x;
         public int y;
+        int length;
+        int width;
         public int level;
+        public Texture2D texture;
+
         public Bomber(Texture2D t, int l)
         {
             level = l;
+            texture = t;
+            
 
         }
     }

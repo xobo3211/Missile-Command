@@ -157,13 +157,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="missle base.png">
-      <Name>missle base</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Star.png">
-      <Name>Star</Name>
+    <Compile Include="plan2.png">
+      <Name>plan2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
