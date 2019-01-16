@@ -202,7 +202,7 @@ namespace Missile_Command
             {
                 Random rn = new Random();
 
-                int missilesFired = rn.Next(5) + 1;
+                int missilesFired = rn.Next(4) + 1;
                 Global.enemyMissilesLeft -= missilesFired;
 
                 for(int i = 0; i < missilesFired; i++)

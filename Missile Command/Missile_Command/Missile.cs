@@ -61,6 +61,12 @@ namespace Missile_Command
             }
 
 
+            if (startPos.X > endPos.X)
+            {
+                rotation += (float)Math.PI / 2;
+            }
+            else rotation -= (float)Math.PI / 2;
+
             this.endPos = new Circle(endPos, velocity);
         }
 
