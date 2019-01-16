@@ -110,9 +110,9 @@ namespace Missile_Command
             //exlosion
             explosionTexture = Content.Load<Texture2D>("EFX/efx_explosion_b_0001");
             //bases
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            missileBase = Content.Load<Texture2D>("missle base");
-            L = Content.Load<Texture2D>("Star");
+            //spriteBatch = new SpriteBatch(GraphicsDevice);
+            //missileBase = Content.Load<Texture2D>("missle base");
+            //L = Content.Load<Texture2D>("Star");
 
 
         }
