@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SureDroid;
 
 namespace Missile_Command
 {
@@ -58,6 +59,8 @@ namespace Missile_Command
 
         public Game1()
         {
+            Useful.set(this);
+
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 500 *2;
             graphics.PreferredBackBufferHeight = 500 *2;
@@ -148,8 +151,8 @@ namespace Missile_Command
 
             //Base Texture
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            missileBase = Content.Load<Texture2D>("missle base");
-            L = Content.Load<Texture2D>("Star");
+            missileBase = Content.Load<Texture2D>("2D/city01");
+            L = Content.Load<Texture2D>("2D/missile_small");
 
 
         }
