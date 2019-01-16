@@ -34,6 +34,10 @@ namespace Missile_Command
 
         MouseState m;
         KeyboardState oldKb;
+        //basses implementation
+        Rectangle[] missilePos;
+        Texture2D missileBase, L;
+        Rectangle land1, land2;
 
         public Game1()
         {
@@ -64,12 +68,33 @@ namespace Missile_Command
             leftBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.15f, GraphicsDevice.Viewport.Height - 50);
             middleBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.5f, GraphicsDevice.Viewport.Height - 50);
             rightBasePosition = new Vector2(GraphicsDevice.Viewport.Width * 0.85f, GraphicsDevice.Viewport.Height - 50);
-
-
+                //control panel
             m = Mouse.GetState();
             oldKb = Keyboard.GetState();
+            //bases
+            missilePos = new Rectangle[3];
+            int framsX = GraphicsDevice.Viewport.Width;
+            int framsY = GraphicsDevice.Viewport.Height;
+            missilePos[0] = new Rectangle(0, framsY - 100, 125, 100);
+            missilePos[1] = new Rectangle((framsX / 2) - 100, framsY - 100, 125, 100);
+            missilePos[2] = new Rectangle(framsX - 125, framsY - 100, 125, 100);
+            land1 = new Rectangle(missilePos[0].X + missilePos[0].Width, missilePos[0].Y + (int)(missilePos[0].Width / 5),
+                        Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
+            land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
+                Distance(missilePos[1], missilePos[2]) - missilePos[1].Width, 100);
+
+
+            
 
             base.Initialize();
+        }
+        // method use to find distance between two rectrangles
+        //@param 2 Rectangle
+        // @return distance cast from double to int
+        public int Distance(Rectangle rect1, Rectangle rect2)
+        {
+            double dis = Math.Sqrt(Math.Pow(rect2.X - rect1.X, 2) + Math.Pow(rect2.Y - rect1.Y, 2));
+            return (int)dis;
         }
 
         /// <summary>
@@ -82,8 +107,14 @@ namespace Missile_Command
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
+            //exlosion
             explosionTexture = Content.Load<Texture2D>("EFX/efx_explosion_b_0001");
+            //bases
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            missileBase = Content.Load<Texture2D>("missle base");
+            L = Content.Load<Texture2D>("Star");
+
+
         }
 
         /// <summary>
@@ -199,6 +230,13 @@ namespace Missile_Command
             {
                 shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
             }
+            //bases
+            //for (int i = 0; i < missilePos.Length; i++)
+            //{
+            //    spriteBatch.Draw(missileBase, missilePos[i], Color.White);
+            //}
+            //spriteBatch.Draw(L, land1, Color.Gold);
+            //spriteBatch.Draw(L, land2, Color.Gold);
 
             spriteBatch.End();
 
