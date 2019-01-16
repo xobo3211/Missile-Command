@@ -14,8 +14,15 @@ namespace Missile_Command
 {
     public static class Global
     {
-        public const float slowMissileSpeed = 2f;
-        public const float fastMissileSpeed = 5f;
+        public const float slowPlayerMissileSpeed = 3f;
+        public const float fastPlayerMissileSpeed = 6f;
+        public const float enemyMissileSpeed = 2f;
+
+        public static int level;
+        public static int points;
+        public static int enemyMissilesLeft;
+        public static int enemyFireTimer;
+
 
         public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.15f, Useful.getWHeight() - 50);
         public static readonly Vector2 middleBasePosition = new Vector2(Useful.getWWidth() * 0.5f, Useful.getWHeight() - 50);
