@@ -35,6 +35,6 @@ public class Circle
 
     public bool Intersects(Circle other)
     {
-        return (other.center - center).Length() < (other.radius - radius);
+        return (other.center - center).Length() < Math.Abs(other.radius - radius);
     }
 }

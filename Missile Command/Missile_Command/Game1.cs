@@ -201,6 +201,7 @@ namespace Missile_Command
 
                         if(baseHitboxes[i].Intersects(expandingExplosions[a].hitbox))
                         {
+                            Console.WriteLine(i);
                             basesDisabled[i] = true;
                             break;
                         }
