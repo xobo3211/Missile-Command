@@ -14,7 +14,7 @@ namespace Missile_Command
     public class Explosion
     {
 
-        Circle hitbox;
+        public Circle hitbox;
 
         float defaultExplosionRadius = 10f;      //Sets beginning explosion radius
         float maxExplosionRadius = 40f;         //Sets maximum explosion radius before disposal
