@@ -23,5 +23,3 @@ Content\EFX\efx_explosion_b_0007.xnb
 Content\EFX\efx_explosion_b_0008.xnb
 Content\EFX\efx_explosion_b_0009.xnb
 Content\EFX\efx_explosion_b_0010.xnb
-Content\missle base.xnb
-Content\Star.xnb

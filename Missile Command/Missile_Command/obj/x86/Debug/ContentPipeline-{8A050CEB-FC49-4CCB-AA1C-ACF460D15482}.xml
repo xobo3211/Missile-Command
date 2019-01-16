@@ -226,24 +226,6 @@
       <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\EFX\efx_explosion_b_0010.xnb</Output>
       <Time>2019-01-14T11:29:26.7290631-06:00</Time>
     </Item>
-    <Item>
-      <Source>missle base.png</Source>
-      <Name>missle base</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\missle base.xnb</Output>
-      <Time>2019-01-16T11:17:09.7322405-06:00</Time>
-    </Item>
-    <Item>
-      <Source>Star.png</Source>
-      <Name>Star</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\Star.xnb</Output>
-      <Time>2019-01-16T11:17:09.7322405-06:00</Time>
-    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{8A050CEB-FC49-4CCB-AA1C-ACF460D15482}</ContentProjectGUID>
