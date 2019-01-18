@@ -102,3 +102,7 @@ C:\Users\149113\Desktop\MissileCommand\Missile Command\Missile_Command\obj\x86\D
 C:\Users\149113\Desktop\MissileCommand\Missile Command\Missile_Command\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\149113\Desktop\MissileCommand\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.exe
 C:\Users\149113\Desktop\MissileCommand\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.pdb
+C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\plan2.xnb
+C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\silo.xnb
+C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\curser.xnb
+C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\font.xnb

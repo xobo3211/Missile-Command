@@ -74,7 +74,7 @@ namespace Missile_Command
 
             curser = new Sprite();
             curser.setScale(.5);
-            pointcounter = new Text("Points: " + Global.points,10, 10);
+            pointcounter = new Text("Points: " + Global.points, 10, 10);
             pointcounter.color = Color.White;
 
             //Creates empty lists to hold playerMissiles and explosions
@@ -333,7 +333,7 @@ namespace Missile_Command
             Global.enemyFireTimer--;
 
             ////////// POINT AND LEVEL SYSTEM
-            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft < 0)
+            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft <= 0)
             {
                 for(int i = 0; i < playerMissilesLeft.Length; i++)                  //Check every silo                                       
                 {
@@ -348,14 +348,15 @@ namespace Missile_Command
                     }
                 }
 
-                for(int i = 0; i < basesDisabled.Length; i++)                       //Rebuild the bases
+                for(int i = 0; i < basesDisabled.Length; i++)                       //Rebuild the bases and refill them
                 {
                     basesDisabled[i] = false;
+                    playerMissilesLeft[i] = 10;
                 }
 
                 Global.level++;
 
-                Global.enemyMissilesLeft = 20 + (Global.level * 2);
+                Global.enemyMissilesLeft = 10 + (Global.level * 2);
                 Global.enemyMissileSpeed += 0.2f;
             }
             
@@ -400,7 +401,7 @@ namespace Missile_Command
             }
             //bases
 
-            for (int i = 0; i < missilePos.Length; i++)
+            for (int i = 0; i < basePos.Length; i++)
             {
                 spriteBatch.Draw(missileBase, basePos[i], Color.White);
             }
@@ -409,7 +410,6 @@ namespace Missile_Command
             //spriteBatch.Draw(L, land2, Color.Gold);
 
             //points
-            spriteBatch.DrawString(font1, "" + Global.points, pointspos, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
