@@ -110,7 +110,7 @@ namespace Missile_Command
             Global.points = 0;
             Global.enemyMissilesLeft = 10;
             Global.enemyFireTimer = 0;
-
+            Vector2 pointspos; = new Vector2((Useful.getWWidth() / 2), (Useful.getWHeight() - 10))
 
             base.Initialize();
         }
@@ -370,7 +370,7 @@ namespace Missile_Command
             spriteBatch.Draw(L, land2, Color.Gold);
 
             //points
-            spriteBatch.DrawString(font1, "" + Global.points, new Vector2((Useful.getWWidth() / 2), (Useful.getWHeight() - 10)), Color.White);
+            spriteBatch.DrawString(font1, "" + Global.points, pointspos, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
