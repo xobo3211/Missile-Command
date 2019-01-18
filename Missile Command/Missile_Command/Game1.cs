@@ -85,9 +85,9 @@ namespace Missile_Command
             missilePos = new Rectangle[3];
             int framsX = GraphicsDevice.Viewport.Width;
             int framsY = GraphicsDevice.Viewport.Height;
-            missilePos[0] = new Rectangle((int)Global.leftBasePosition.X - 50, (int)leftBasePosition.Y, 125, 100);
-            missilePos[1] = new Rectangle((int)Global. middleBasePosition.X -50, (int)middleBasePosition.Y, 125, 100);
-            missilePos[2] = new Rectangle((int)rightBasePosition.X, (int)rightBasePosition.Y, 125, 100);
+            missilePos[0] = new Rectangle((int)Global.leftBasePosition.X - 50, (int)Global.leftBasePosition.Y, 125, 100);
+            missilePos[1] = new Rectangle((int)Global. middleBasePosition.X -50, (int)Global.middleBasePosition.Y, 125, 100);
+            missilePos[2] = new Rectangle((int)Global.rightBasePosition.X, (int)Global.rightBasePosition.Y, 125, 100);
             land1 = new Rectangle(missilePos[0].X + missilePos[0].Width, missilePos[0].Y + (int)(missilePos[0].Width / 5),
                         Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
             land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
