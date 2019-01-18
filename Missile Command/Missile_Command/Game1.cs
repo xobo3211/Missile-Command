@@ -37,6 +37,8 @@ namespace Missile_Command
         Texture2D missileBase, L;
         Rectangle land1, land2;
 
+        Rectangle[] basePos;
+
         Circle[] baseHitboxes;
 
         bool[] basesDisabled;
@@ -92,6 +94,12 @@ namespace Missile_Command
                         Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
             land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
                 Distance(missilePos[1], missilePos[2]) - missilePos[1].Width, 100);
+
+            basePos = new Rectangle[3];
+
+            basePos[0] = new Rectangle((int)Global.leftBasePosition.X - Global.baseWidth / 2, (int)Global.leftBasePosition.Y - Global.baseHeight / 2, Global.baseWidth, Global.baseHeight);
+            basePos[1] = new Rectangle((int)Global.middleBasePosition.X - Global.baseWidth / 2, (int)Global.middleBasePosition.Y - Global.baseHeight / 2, Global.baseWidth, Global.baseHeight);
+            basePos[2] = new Rectangle((int)Global.rightBasePosition.X - Global.baseWidth / 2, (int)Global.rightBasePosition.Y - Global.baseHeight / 2, Global.baseWidth, Global.baseHeight);
 
 
             basesDisabled = new bool[3] { false, false, false };                                                  //Initializes the bases as not being disabled
@@ -361,12 +369,14 @@ namespace Missile_Command
                 shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
             }
             //bases
+
             for (int i = 0; i < missilePos.Length; i++)
             {
-                spriteBatch.Draw(missileBase, missilePos[i], Color.White);
+                spriteBatch.Draw(missileBase, basePos[i], Color.White);
             }
-            spriteBatch.Draw(L, land1, Color.Gold);
-            spriteBatch.Draw(L, land2, Color.Gold);
+
+            //spriteBatch.Draw(L, land1, Color.Gold);
+            //spriteBatch.Draw(L, land2, Color.Gold);
 
             spriteBatch.End();
 
