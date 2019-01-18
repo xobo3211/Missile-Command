@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using SureDroid;
 
 namespace Missile_Command
 {
@@ -19,11 +18,9 @@ namespace Missile_Command
 
         public Circle endPos;                   //Hitbox to detect when missile reaches the end of it's travel. When missile enters said hitbox, it detonates
 
-        static Texture2D texture = Useful.getTexture("missile_small");
+        public static Texture2D texture;
 
         float rotation;
-        int missileWidth = 3;                       //Width of missile
-        int missileLength = 5;                      //Length of Missile
 
         public bool willExplode                 //Returns whether or not it is time for the missile to detonate
         {
@@ -33,7 +30,7 @@ namespace Missile_Command
             }
         }
 
-        public Missile(Texture2D texture, Vector2 startPos, Vector2 velocity, Circle endPos)
+        public Missile( Vector2 startPos, Vector2 velocity, Circle endPos)
         {
             position = startPos;
             this.velocity = velocity;
@@ -43,7 +40,7 @@ namespace Missile_Command
             rotation = (float)Math.Atan((double)(endPos.center.Y - startPos.Y / endPos.center.X - startPos.X));
         }
 
-        public Missile(Texture2D texture, Vector2 startPos, float velocity, Vector2 endPos)
+        public Missile(Vector2 startPos, float velocity, Vector2 endPos)
         {
             position = startPos;
 
@@ -87,7 +84,7 @@ namespace Missile_Command
 
         public void Draw(SpriteBatch b)
         {
-            b.Draw(texture, new Rectangle((int)position.X - missileWidth / 2, (int)position.Y - missileLength / 2, missileWidth, missileLength), null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
+            b.Draw(texture, new Rectangle((int)position.X - Global.missileWidth / 2, (int)position.Y - Global.missileLength / 2, Global.missileWidth, Global.missileLength), null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }
