@@ -302,7 +302,9 @@ namespace Missile_Command
                     }
                 }
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
             }
@@ -353,7 +355,7 @@ namespace Missile_Command
                     basesDisabled[i] = false;
                     playerMissilesLeft[i] = 10;
                 }
-
+                pointcounter.content = "Points: " + Global.points;
                 Global.level++;
 
                 Global.enemyMissilesLeft = 10 + (Global.level * 2);
