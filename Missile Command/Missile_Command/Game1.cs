@@ -25,7 +25,6 @@ namespace Missile_Command
         List<Missile> playerMissiles;
         List<Missile> enemyMissiles;
 
-        List<Missile> missiles;
         List<Explosion> expandingExplosions;
         List<Explosion> shrinkingExplosions;
 
@@ -46,7 +45,7 @@ namespace Missile_Command
 
         int[] playerMissilesLeft;
 
-        int minFiringHeight = 120;           //Height in pixels above the bottom of screen that you can begin firing playerMissiles from
+        int minFiringHeight = 100;           //Height in pixels above the bottom of screen that you can begin firing playerMissiles from
 
 
 
@@ -55,8 +54,8 @@ namespace Missile_Command
             Useful.set(this);
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500 *2;
-            graphics.PreferredBackBufferHeight = 500 *2;
+            graphics.PreferredBackBufferWidth = 500 * 2;
+            graphics.PreferredBackBufferHeight = 500 * 2;
             
             Content.RootDirectory = "Content";
         }
@@ -84,16 +83,8 @@ namespace Missile_Command
             oldKb = Keyboard.GetState();
 
             //bases
-            missilePos = new Rectangle[3];
             int framsX = GraphicsDevice.Viewport.Width;
             int framsY = GraphicsDevice.Viewport.Height;
-            missilePos[0] = new Rectangle((int)Global.leftBasePosition.X - 50, (int)Global.leftBasePosition.Y, 125, 100);
-            missilePos[1] = new Rectangle((int)Global. middleBasePosition.X -50, (int)Global.middleBasePosition.Y, 125, 100);
-            missilePos[2] = new Rectangle((int)Global.rightBasePosition.X, (int)Global.rightBasePosition.Y, 125, 100);
-            land1 = new Rectangle(missilePos[0].X + missilePos[0].Width, missilePos[0].Y + (int)(missilePos[0].Width / 5),
-                        Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
-            land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
-                Distance(missilePos[1], missilePos[2]) - missilePos[1].Width, 100);
 
             basePos = new Rectangle[3];
 
@@ -145,7 +136,7 @@ namespace Missile_Command
 
             //Base Texture
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            missileBase = Content.Load<Texture2D>("2D/city01");
+            missileBase = Content.Load<Texture2D>("silo");
             L = Content.Load<Texture2D>("2D/missile_small");
 
 
@@ -267,31 +258,31 @@ namespace Missile_Command
 
             try
             {
-                for (int i = 0; i < enemyMissiles.Count; i++)
+                for (int i = 0; i < enemyMissiles.Count; i++)                                   //Check every missile in the list
                 {
                     enemyMissiles[i].Update();
-                    if (enemyMissiles[i].willExplode)
+                    if (enemyMissiles[i].willExplode)                                           //Check if missile has reached the point it was aimed at
                     {
-                        expandingExplosions.Add(enemyMissiles[i].Detonate());
+                        expandingExplosions.Add(enemyMissiles[i].Detonate());                   //If so, detonate it and add it to the explosion list
                         enemyMissiles.RemoveAt(i);
                         i--;
                     }
-                    else
+                    else                                                                        //If not, compare the missile to every one of the explosions
                     {
                         for (int a = 0; a < expandingExplosions.Count; a++)
                         {
-                            if (expandingExplosions[a].hitbox.Contains(enemyMissiles[i].position))
+                            if (expandingExplosions[a].hitbox.Contains(enemyMissiles[i].position))  //Compare to expanding explosions
                             {
                                 expandingExplosions.Add(enemyMissiles[i].Detonate());
                                 enemyMissiles.RemoveAt(i);
                                 i--;
-                                break;
+                                break;                                                               //Break if intersection detected to avoid errors and redundancy
                             }
                         }
 
                         for (int a = 0; a < shrinkingExplosions.Count; a++)
                         {
-                            if (shrinkingExplosions[a].hitbox.Contains(enemyMissiles[i].position))
+                            if (shrinkingExplosions[a].hitbox.Contains(enemyMissiles[i].position))  //Compare to shrinking explosions
                             {
                                 expandingExplosions.Add(enemyMissiles[i].Detonate());
                                 enemyMissiles.RemoveAt(i);
@@ -304,7 +295,7 @@ namespace Missile_Command
             }
             catch (Exception e)
             {
-                Console.WriteLine("Missile removal error");
+                Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
             }
 
             for(int i = 0; i < expandingExplosions.Count; i++)
