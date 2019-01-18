@@ -16,7 +16,7 @@ namespace Missile_Command
     {
         public const float slowPlayerMissileSpeed = 4f;                                     //Stores outer missile base missile speed
         public const float fastPlayerMissileSpeed = 8f;                                     //Stores middle missile base speed
-        public const float enemyMissileSpeed = 1.5f;
+        public static float enemyMissileSpeed = 1.5f;
 
         public static int level;
         public static int points;

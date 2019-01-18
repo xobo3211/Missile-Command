@@ -227,6 +227,7 @@ namespace Missile_Command
                         if(baseHitboxes[i].Intersects(expandingExplosions[a].hitbox))
                         {
                             basesDisabled[i] = true;
+                            playerMissilesLeft[i] = 0;
                             break;
                         }
                     }
@@ -236,6 +237,7 @@ namespace Missile_Command
                         if(baseHitboxes[i].Intersects(shrinkingExplosions[a].hitbox))
                         {
                             basesDisabled[i] = true;
+                            playerMissilesLeft[i] = 0;
                             break;
                         }
                     }
@@ -322,9 +324,30 @@ namespace Missile_Command
             Global.enemyFireTimer--;
 
             ////////// POINT AND LEVEL SYSTEM
-            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft>0)
+            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft < 0)
             {
+                for(int i = 0; i < 3; i++)
+                {
+                    Global.points += (5 * Global.level * playerMissilesLeft[i]);
+                }
+
+                for(int i = 0; i < citiesDestroyed.Length; i++)
+                {
+                    if(!citiesDestroyed[i])
+                    {
+                        Global.points += (200 * Global.level);
+                    }
+                }
+
+                for(int i = 0; i < basesDisabled.Length; i++)
+                {
+                    basesDisabled[i] = false;
+                }
+
                 Global.level++;
+
+                Global.enemyMissilesLeft = 20 + (Global.level * 2);
+                Global.enemyMissileSpeed += 0.2f;
             }
             
 
