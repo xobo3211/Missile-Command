@@ -22,11 +22,12 @@ namespace Missile_Command
         public static int points;
         public static int enemyMissilesLeft;
         public static int enemyFireTimer;
+        public static int baseWidth = 70, baseHeight = 40;
 
 
-        public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.15f, Useful.getWHeight() - 50);
+        public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.1f, Useful.getWHeight() - 50);
         public static readonly Vector2 middleBasePosition = new Vector2(Useful.getWWidth() * 0.5f, Useful.getWHeight() - 50);
-        public static readonly Vector2 rightBasePosition = new Vector2(Useful.getWWidth() * 0.85f, Useful.getWHeight() - 50);
+        public static readonly Vector2 rightBasePosition = new Vector2(Useful.getWWidth() * 0.9f, Useful.getWHeight() - 50);
 
 
     }
