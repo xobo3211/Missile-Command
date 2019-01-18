@@ -176,19 +176,19 @@ namespace Missile_Command
 
                 if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.leftBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[0]--;
                 }
 
                 if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.middleBasePosition, Global.fastMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[1]--;
                 }
 
                 if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])
                 {
-                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.rightBasePosition, Global.slowMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Content.Load<Texture2D>("2D/missile_small"), Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
                     playerMissilesLeft[2]--;
                 }
 
@@ -322,7 +322,7 @@ namespace Missile_Command
                 }
             }
 
-            enemyFireTimer--;
+            Global.enemyFireTimer--;
 
             oldKb = kb;
 
