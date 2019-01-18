@@ -98,3 +98,4 @@ C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\obj\x86\
 C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.pdb
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\missle base.xnb
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Content\Star.xnb
+C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\plan2.xnb

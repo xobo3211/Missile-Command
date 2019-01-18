@@ -332,6 +332,13 @@ namespace Missile_Command
 
             Global.enemyFireTimer--;
 
+            ////////// POINT AND LEVEL SYSTEM
+            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft>0)
+            {
+                Global.level++;
+            }
+            
+
             oldKb = kb;
 
             base.Update(gameTime);
