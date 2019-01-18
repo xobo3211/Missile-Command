@@ -302,7 +302,9 @@ namespace Missile_Command
                     }
                 }
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
             }
@@ -333,7 +335,7 @@ namespace Missile_Command
             Global.enemyFireTimer--;
 
             ////////// POINT AND LEVEL SYSTEM
-            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft < 0)
+            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft <= 0)
             {
                 for(int i = 0; i < 3; i++)
                 {
@@ -352,7 +354,7 @@ namespace Missile_Command
                 {
                     basesDisabled[i] = false;
                 }
-
+                pointcounter.content = "Points: " + Global.points;
                 Global.level++;
 
                 Global.enemyMissilesLeft = 20 + (Global.level * 2);
@@ -400,7 +402,7 @@ namespace Missile_Command
             }
             //bases
 
-            for (int i = 0; i < missilePos.Length; i++)
+            for (int i = 0; i < basePos.Length; i++)
             {
                 spriteBatch.Draw(missileBase, basePos[i], Color.White);
             }
