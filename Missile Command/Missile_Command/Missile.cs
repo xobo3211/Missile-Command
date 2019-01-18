@@ -21,8 +21,6 @@ namespace Missile_Command
         public static Texture2D texture;
 
         float rotation;
-        int missileWidth = 3;                       //Width of missile
-        int missileLength = 5;                      //Length of Missile
 
         public bool willExplode                 //Returns whether or not it is time for the missile to detonate
         {
@@ -86,7 +84,7 @@ namespace Missile_Command
 
         public void Draw(SpriteBatch b)
         {
-            b.Draw(texture, new Rectangle((int)position.X - missileWidth / 2, (int)position.Y - missileLength / 2, missileWidth, missileLength), null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
+            b.Draw(texture, new Rectangle((int)position.X - Global.missileWidth / 2, (int)position.Y - Global.missileLength / 2, Global.missileWidth, Global.missileLength), null, Color.White, rotation, Vector2.Zero, SpriteEffects.None, 0);
         }
     }
 }
