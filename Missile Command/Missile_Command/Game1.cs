@@ -29,6 +29,7 @@ namespace Missile_Command
         List<Explosion> expandingExplosions;
         List<Explosion> shrinkingExplosions;
 
+        Vector2 pointspos;
         MouseState m;
         KeyboardState oldKb;
 
@@ -109,7 +110,7 @@ namespace Missile_Command
             Global.points = 0;
             Global.enemyMissilesLeft = 10;
             Global.enemyFireTimer = 0;
-            Vector2 pointspos; = new Vector2((Useful.getWWidth() / 2), (Useful.getWHeight() - 10))
+            pointspos = new Vector2((Useful.getWWidth() / 2), (Useful.getWHeight() - 10));
 
             base.Initialize();
         }

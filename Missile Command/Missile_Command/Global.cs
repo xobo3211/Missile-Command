@@ -23,7 +23,7 @@ namespace Missile_Command
         public static int enemyMissilesLeft;                                                //Counts number of missiles enemy has left to fire
         public static int enemyFireTimer;                                                   //Counts time until enemy fiers again
         public static int baseWidth = 70, baseHeight = 80;                                  //Controls missile base dimensions
-        public static int missileWidth = 3, missileLength = 5;                              //Controls missile dimensions
+        public static int missileWidth = 15, missileLength = 25;                              //Controls missile dimensions
 
 
         public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.1f, Useful.getWHeight() - baseHeight / 2);
