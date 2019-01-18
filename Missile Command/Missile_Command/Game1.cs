@@ -409,7 +409,6 @@ namespace Missile_Command
             //spriteBatch.Draw(L, land2, Color.Gold);
 
             //points
-            spriteBatch.DrawString(font1, "" + Global.points, pointspos, Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
