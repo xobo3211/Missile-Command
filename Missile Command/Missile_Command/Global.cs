@@ -22,7 +22,6 @@ namespace Missile_Command
         public static int points;
         public static int enemyMissilesLeft;
         public static int enemyFireTimer;
-        public static float enemyMissileSpeed = 1.3f;
 
 
         public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.15f, Useful.getWHeight() - 50);
