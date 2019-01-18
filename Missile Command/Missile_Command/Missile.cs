@@ -18,7 +18,7 @@ namespace Missile_Command
 
         public Circle endPos;                   //Hitbox to detect when missile reaches the end of it's travel. When missile enters said hitbox, it detonates
 
-        Texture2D texture;
+        public static Texture2D texture;
 
         float rotation;
 
@@ -30,9 +30,8 @@ namespace Missile_Command
             }
         }
 
-        public Missile(Texture2D texture, Vector2 startPos, Vector2 velocity, Circle endPos)
+        public Missile( Vector2 startPos, Vector2 velocity, Circle endPos)
         {
-            this.texture = texture;
             position = startPos;
             this.velocity = velocity;
 
@@ -41,9 +40,8 @@ namespace Missile_Command
             rotation = (float)Math.Atan((double)(endPos.center.Y - startPos.Y / endPos.center.X - startPos.X));
         }
 
-        public Missile(Texture2D texture, Vector2 startPos, float velocity, Vector2 endPos)
+        public Missile(Vector2 startPos, float velocity, Vector2 endPos)
         {
-            this.texture = texture;
             position = startPos;
 
             if (startPos.X > endPos.X)
