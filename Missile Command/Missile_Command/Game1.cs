@@ -337,20 +337,20 @@ namespace Missile_Command
             ////////// POINT AND LEVEL SYSTEM
             if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft <= 0)
             {
-                for(int i = 0; i < 3; i++)
+                for(int i = 0; i < playerMissilesLeft.Length; i++)                  //Check every silo                                       
                 {
-                    Global.points += (5 * Global.level * playerMissilesLeft[i]);
+                    Global.points += (5 * Global.level * playerMissilesLeft[i]);    //Add points for every missile left
                 }
 
-                for(int i = 0; i < citiesDestroyed.Length; i++)
+                for(int i = 0; i < citiesDestroyed.Length; i++)                     //Check every city
                 {
-                    if(!citiesDestroyed[i])
+                    if(!citiesDestroyed[i])                                         //If the city is destroyed...
                     {
-                        Global.points += (200 * Global.level);
+                        Global.points += (200 * Global.level);                      //...Gain 200 * level points
                     }
                 }
 
-                for(int i = 0; i < basesDisabled.Length; i++)
+                for(int i = 0; i < basesDisabled.Length; i++)                       //Rebuild the bases
                 {
                     basesDisabled[i] = false;
                 }
