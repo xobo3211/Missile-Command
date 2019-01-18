@@ -21,6 +21,8 @@ namespace Missile_Command
         SpriteBatch spriteBatch;
 
         Texture2D explosionTexture;
+        Sprite curser;
+        Text pointcounter;
 
         List<Missile> playerMissiles;
         List<Missile> enemyMissiles;
@@ -71,7 +73,10 @@ namespace Missile_Command
         {
             // TODO: Add your initialization logic here
 
-            IsMouseVisible = true;
+            curser = new Sprite();
+            curser.setScale(.5);
+            pointcounter = new Text("Points: " + Global.points,10, 10);
+            pointcounter.color = Color.White;
 
             //Creates empty lists to hold playerMissiles and explosions
             playerMissiles = new List<Missile>(20);
@@ -150,6 +155,8 @@ namespace Missile_Command
 
             Missile.texture = Content.Load<Texture2D>("2D/missile_small");
 
+            Text.setDefaultFont("font");
+            curser.addTexture("curser");
         }
 
         /// <summary>
@@ -177,6 +184,8 @@ namespace Missile_Command
             KeyboardState kb = Keyboard.GetState();
 
             m = Mouse.GetState();
+
+            curser.setPos(m.X-curser.getWidth()/2, m.Y-curser.getHeight()/2);
 
             ///////////////////////////////////////////////     Firing Logic
 
@@ -346,6 +355,8 @@ namespace Missile_Command
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
+
+            Useful.drawAll(spriteBatch);
 
             for(int i = 0; i < playerMissiles.Count; i++)
             {
