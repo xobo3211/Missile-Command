@@ -335,7 +335,7 @@ namespace Missile_Command
             Global.enemyFireTimer--;
 
             ////////// POINT AND LEVEL SYSTEM
-            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft <= 0)
+            if(enemyMissiles.Count == 0 && expandingExplosions.Count == 0 && shrinkingExplosions.Count == 0 && Global.enemyMissilesLeft <= 0)
             {
                 for(int i = 0; i < playerMissilesLeft.Length; i++)                  //Check every silo                                       
                 {

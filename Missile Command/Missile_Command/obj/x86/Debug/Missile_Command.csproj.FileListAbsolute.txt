@@ -51,7 +51,6 @@ C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missil
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Microsoft.Xna.Framework.Graphics.xml
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Microsoft.Xna.Framework.GamerServices.xml
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\bin\x86\Debug\Microsoft.Xna.Framework.Input.Touch.xml
-C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.csprojResolveAssemblyReference.cache
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.exe
 C:\Users\238948\Desktop\Video Game Design\Missile-Command\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.pdb
