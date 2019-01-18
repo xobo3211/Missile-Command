@@ -235,6 +235,33 @@
       <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\plan2.xnb</Output>
       <Time>2019-01-16T12:14:51.447209-06:00</Time>
     </Item>
+    <Item>
+      <Source>missle base.png</Source>
+      <Name>missle base</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\missle base.xnb</Output>
+      <Time>2019-01-16T11:17:09.7322405-06:00</Time>
+    </Item>
+    <Item>
+      <Source>silo.png</Source>
+      <Name>silo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\silo.xnb</Output>
+      <Time>2019-01-16T12:14:51.4492092-06:00</Time>
+    </Item>
+    <Item>
+      <Source>Star.png</Source>
+      <Name>Star</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\228634\Desktop\missile command\Missile Command\Missile_Command\bin\x86\Debug\Content\Star.xnb</Output>
+      <Time>2019-01-16T11:17:09.7322405-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{8A050CEB-FC49-4CCB-AA1C-ACF460D15482}</ContentProjectGUID>

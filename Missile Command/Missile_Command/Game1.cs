@@ -335,7 +335,6 @@ namespace Missile_Command
             {
                 Global.level++;
             }
-            
 
             oldKb = kb;
 
