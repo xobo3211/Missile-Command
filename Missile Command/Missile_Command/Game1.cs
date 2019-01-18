@@ -21,6 +21,7 @@ namespace Missile_Command
         SpriteBatch spriteBatch;
 
         Texture2D explosionTexture;
+        SpriteFont font1;
 
         List<Missile> playerMissiles;
         List<Missile> enemyMissiles;
@@ -134,7 +135,7 @@ namespace Missile_Command
             // TODO: use this.Content to load your game content here
             //Explosion Texture
             explosionTexture = Content.Load<Texture2D>("EFX/efx_explosion_b_0001");
-
+            font1 = Content.Load<SpriteFont>("SpriteFont1");            
             //Base Texture
             spriteBatch = new SpriteBatch(GraphicsDevice);
             missileBase = Content.Load<Texture2D>("2D/city01");
@@ -368,6 +369,8 @@ namespace Missile_Command
             spriteBatch.Draw(L, land1, Color.Gold);
             spriteBatch.Draw(L, land2, Color.Gold);
 
+            //points
+            spriteBatch.DrawString(font1, "" + Global.points, new Vector2((Useful.getWWidth() / 2), (Useful.getWHeight() - 10)), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
