@@ -34,9 +34,7 @@ namespace Missile_Command
         KeyboardState oldKb;
 
         //Base Implementation
-        Rectangle[] missilePos;
         Texture2D missileBase, L;
-        Rectangle land1, land2;
 
         Rectangle[] basePos;
 
@@ -56,8 +54,8 @@ namespace Missile_Command
             Useful.set(this);
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500 * 2;
-            graphics.PreferredBackBufferHeight = 500 * 2;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 700;
             
             Content.RootDirectory = "Content";
         }
@@ -183,21 +181,21 @@ namespace Missile_Command
             if (m.Y < GraphicsDevice.Viewport.Height - minFiringHeight)                                         //Sets minimum height for playerMissiles to be fired from to prevent our playerMissiles from destroying our own bases
             {
 
-                if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])
+                if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])        //Fires from left base
                 {
-                    playerMissiles.Add(new Missile(Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice));
                     playerMissilesLeft[0]--;
                 }
 
-                if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])
+                if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])        //Fires from middle base
                 {
-                    playerMissiles.Add(new Missile(Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice));
                     playerMissilesLeft[1]--;
                 }
 
-                if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])
+                if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])        //Fires from right base
                 {
-                    playerMissiles.Add(new Missile(Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
+                    playerMissiles.Add(new Missile(Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice));
                     playerMissilesLeft[2]--;
                 }
 
@@ -216,7 +214,8 @@ namespace Missile_Command
 
                 for(int i = 0; i < missilesFired; i++)
                 {
-                    enemyMissiles.Add(new Missile(new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), Global.enemyMissileSpeed, baseHitboxes[rn.Next(3)].center));
+                    
+                    enemyMissiles.Add(new Missile(new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), Global.enemyMissileSpeed, baseHitboxes[rn.Next(3)].center, Color.Red, GraphicsDevice));
                 }
 
                 Global.enemyFireTimer = rn.Next(240) + 120;
@@ -401,17 +400,12 @@ namespace Missile_Command
             {
                 shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
             }
-            //bases
 
             for (int i = 0; i < basePos.Length; i++)
             {
                 spriteBatch.Draw(missileBase, basePos[i], Color.White);
             }
 
-            //spriteBatch.Draw(L, land1, Color.Gold);
-            //spriteBatch.Draw(L, land2, Color.Gold);
-
-            //points
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -14,8 +14,8 @@ namespace Missile_Command
 {
     public static class Global
     {
-        public const float slowPlayerMissileSpeed = 3f;                                     //Stores outer missile base missile speed
-        public const float fastPlayerMissileSpeed = 5f;                                     //Stores middle missile base speed
+        public const float slowPlayerMissileSpeed = 4f;                                     //Stores outer missile base missile speed
+        public const float fastPlayerMissileSpeed = 8f;                                     //Stores middle missile base speed
         public static float enemyMissileSpeed = 1f;
 
         public static int level;
@@ -23,7 +23,8 @@ namespace Missile_Command
         public static int enemyMissilesLeft;                                                //Counts number of missiles enemy has left to fire
         public static int enemyFireTimer;                                                   //Counts time until enemy fiers again
         public static int baseWidth = 70, baseHeight = 80;                                  //Controls missile base dimensions
-        public static int missileWidth = 3, missileLength = 5;                              //Controls missile dimensions
+        public static int missileWidth = 5, missileLength = 8;                              //Controls missile dimensions
+        public static int missileTrailWidth = 1;
 
 
         public static readonly Vector2 leftBasePosition = new Vector2(Useful.getWWidth() * 0.1f, Useful.getWHeight() - baseHeight / 2);
