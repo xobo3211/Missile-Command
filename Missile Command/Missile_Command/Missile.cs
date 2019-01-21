@@ -24,6 +24,9 @@ namespace Missile_Command
 
         Line trail;                             //Stores line trail for the missile
 
+        public bool isClusterMissile;                  //Detects if missile will split into a cluster
+        int clusterCount;                       //Stores number of missiles it will separate into
+
         public bool willExplode                 //Returns whether or not it is time for the missile to detonate
         {
             get
@@ -99,6 +102,29 @@ namespace Missile_Command
             return new Explosion(position, explosionStartRadius);
         }
 
+        public Missile[] ClusterSeparate(GraphicsDevice g)          //Creates an array of missiles from a separating cluster missile
+        {
+            Missile[] newMissiles = new Missile[clusterCount];
+
+            Random rn = new Random();
+
+            for (int i = 0; i < clusterCount; i++)
+            {
+                Vector2 aimVec = Global.targets[rn.Next(Global.targets.Length)];
+
+                int escapeCase = 0;                                             //Used to prevent this from infinitely looping
+                while (Global.destroyedTargets.Contains(aimVec) && escapeCase < 100)    //Detects if target has already been destroyed, and if so, changes target
+                {
+                    aimVec = Global.targets[rn.Next(Global.targets.Length)];
+                    escapeCase++;
+                }
+                newMissiles[i] = new Missile(position, Global.enemyMissileSpeed, aimVec, Color.Red, g);
+                newMissiles[i].isClusterMissile = false;                        //Guarantees new missiles created won't cluster
+            }
+
+            return newMissiles;
+        }
+
         public void Draw(SpriteBatch b)
         {
             if (trail != null)              //Makes sure trail isn't null before drawing it
@@ -106,6 +132,29 @@ namespace Missile_Command
 
             b.Draw(texture, new Rectangle((int)position.X, (int)position.Y, Global.missileWidth, Global.missileLength), null, Color.White, rotation,
                         new Vector2(Global.missileWidth, Global.missileLength), SpriteEffects.None, 0);
+        }
+
+        public void clusterCalc()                                   //Calculates whether missile will be a cluster missile and handles logic related to that
+        {                                                           //IMPORTANT: Must be called after the creation of every enemy missile.
+            Random rn = new Random();
+
+            float clusterChance = 0.1f + ((Global.level - 1) * 0.02f);
+
+            int clusterChanceCalc = (int)(clusterChance * 100);
+
+            isClusterMissile = clusterChanceCalc >= rn.Next(101);   //Calculates chance and determines if it is a cluster missile
+
+            if (isClusterMissile)                                    //If missile is a cluster missile, it will cluster into 2-level/2 missiles
+            {
+                clusterCount = rn.Next(Global.level / 2) + 2;
+
+                float distance = (position - endPos.center).Length();                       //Changes endPos so it will split at endPos
+                int steps = (int)(distance / velocity.Length());
+                float distanceMod = rn.Next(40) + 20;
+                steps = (int)(steps * distanceMod / 100);
+
+                endPos.center = position + (steps * velocity);
+            }
         }
     }
 }
