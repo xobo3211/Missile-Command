@@ -392,6 +392,9 @@ namespace Missile_Command
                 {
                     basesDisabled[i] = false;
                     playerMissilesLeft[i] = 10;
+                    Global.destroyedTargets.Remove(Global.leftBasePosition);
+                    Global.destroyedTargets.Remove(Global.middleBasePosition);
+                    Global.destroyedTargets.Remove(Global.rightBasePosition);
                 }
                 pointcounter.content = "Points: " + Global.points;
                 Global.level++;
