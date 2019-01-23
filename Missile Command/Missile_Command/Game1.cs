@@ -384,7 +384,22 @@ namespace Missile_Command
                     }
                 }
 
-                Global.enemyFireTimer--;
+                
+
+                if(Global.pointsToNextCity <= 0)                                            //Code for adding back new cities when you reach a certain level of points
+                {
+                    Random rn = new Random();
+
+                    int cityIndex = rn.Next(6), defaultCase = 0;
+                    while(citiesDestroyed[cityIndex] == false && defaultCase < 100)
+                    {
+                        cityIndex = rn.Next(6);
+                        defaultCase++;
+                    }
+
+                    citiesDestroyed[cityIndex] = false;
+                    Global.pointsToNextCity = 10000;
+                }
 
                 //////////////////////////////////////////////////////////////////////////////////// POINT AND LEVEL SYSTEM
                 if (enemyMissiles.Count == 0 && expandingExplosions.Count == 0 && shrinkingExplosions.Count == 0 && Global.enemyMissilesLeft <= 0)
@@ -392,6 +407,7 @@ namespace Missile_Command
                     for (int i = 0; i < playerMissilesLeft.Length; i++)                  //Check every silo                                       
                     {
                         Global.points += (5 * Global.level * playerMissilesLeft[i]);    //Add points for every missile left
+                        Global.pointsToNextCity -= (5 * Global.level * playerMissilesLeft[i]);
                     }
 
                     for (int i = 0; i < citiesDestroyed.Length; i++)                     //Check every city
@@ -399,6 +415,7 @@ namespace Missile_Command
                         if (!citiesDestroyed[i])                                         //If the city is destroyed...
                         {
                             Global.points += (200 * Global.level);                      //...Gain 200 * level points
+                            Global.pointsToNextCity -= (200 * Global.level);
                         }
                     }
 
@@ -414,8 +431,6 @@ namespace Missile_Command
 
                     Global.enemyMissilesLeft = 10 + (Global.level * 2);
                     Global.enemyMissileSpeed += 0.2f;
-
-
 
                     bool gameEnd = true;                                                //End logic
                         
@@ -435,6 +450,7 @@ namespace Missile_Command
                     }
                 }
 
+                Global.enemyFireTimer--;
                 pointcounter.content = "Points: " + Global.points;
             }
             else if(endState)

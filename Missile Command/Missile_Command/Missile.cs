@@ -84,8 +84,6 @@ namespace Missile_Command
             {
                 this.velocity.Y *= -1;
             }
-
-            Console.WriteLine(this.endPos.center.X);
         }
 
 
