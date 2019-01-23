@@ -21,11 +21,12 @@ namespace Missile_Command
         SpriteBatch spriteBatch;
 
         Texture2D explosionTexture;
+        Sprite curser;
+        Text pointcounter;
 
         List<Missile> playerMissiles;
         List<Missile> enemyMissiles;
 
-        List<Missile> missiles;
         List<Explosion> expandingExplosions;
         List<Explosion> shrinkingExplosions;
 
@@ -33,21 +34,21 @@ namespace Missile_Command
         KeyboardState oldKb;
 
         //Base Implementation
-        Rectangle[] missilePos;
-        Texture2D missileBase, L;
-        Rectangle land1, land2;
+        Texture2D missileBase, cityTexture;
 
         Rectangle[] basePos;
 
-        Circle[] baseHitboxes;
+        Circle[] baseHitboxes, cityHitboxes;
 
         bool[] basesDisabled;
         bool[] citiesDestroyed;
 
         int[] playerMissilesLeft;
 
-        int minFiringHeight = 120;           //Height in pixels above the bottom of screen that you can begin firing playerMissiles from
+        int minFiringHeight = 100;           //Height in pixels above the bottom of screen that you can begin firing playerMissiles from
 
+
+        bool startState = true, gameState, endState;
 
 
         public Game1()
@@ -55,8 +56,8 @@ namespace Missile_Command
             Useful.set(this);
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 500 *2;
-            graphics.PreferredBackBufferHeight = 500 *2;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 700;
             
             Content.RootDirectory = "Content";
         }
@@ -71,7 +72,10 @@ namespace Missile_Command
         {
             // TODO: Add your initialization logic here
 
-            IsMouseVisible = true;
+            curser = new Sprite();
+            curser.setScale(.5);
+            pointcounter = new Text("Points: " + Global.points, 10, 10);
+            pointcounter.color = Color.White;
 
             //Creates empty lists to hold playerMissiles and explosions
             playerMissiles = new List<Missile>(20);
@@ -84,16 +88,8 @@ namespace Missile_Command
             oldKb = Keyboard.GetState();
 
             //bases
-            missilePos = new Rectangle[3];
             int framsX = GraphicsDevice.Viewport.Width;
             int framsY = GraphicsDevice.Viewport.Height;
-            missilePos[0] = new Rectangle((int)Global.leftBasePosition.X - 50, (int)Global.leftBasePosition.Y, 125, 100);
-            missilePos[1] = new Rectangle((int)Global. middleBasePosition.X -50, (int)Global.middleBasePosition.Y, 125, 100);
-            missilePos[2] = new Rectangle((int)Global.rightBasePosition.X, (int)Global.rightBasePosition.Y, 125, 100);
-            land1 = new Rectangle(missilePos[0].X + missilePos[0].Width, missilePos[0].Y + (int)(missilePos[0].Width / 5),
-                        Distance(missilePos[0], missilePos[1]) - missilePos[0].Width, 100);
-            land2 = new Rectangle(missilePos[1].X + missilePos[1].Width, missilePos[1].Y + (int)missilePos[1].Width / 5,
-                Distance(missilePos[1], missilePos[2]) - missilePos[1].Width, 100);
 
             basePos = new Rectangle[3];
 
@@ -108,10 +104,18 @@ namespace Missile_Command
 
             float baseHitboxSize = 50f;                                                                           //Radius of circular base hitbox
 
-            baseHitboxes = new Circle[3];
+            baseHitboxes = new Circle[3];                                                   //Creates hitboxes to detect if base is destroyed
             baseHitboxes[0] = new Circle(Global.leftBasePosition, baseHitboxSize);
             baseHitboxes[1] = new Circle(Global.middleBasePosition, baseHitboxSize);
             baseHitboxes[2] = new Circle(Global.rightBasePosition, baseHitboxSize);
+
+            float cityHitboxSize = 30f;
+
+            cityHitboxes = new Circle[6];                                                   //Creates hitboxes to detect if city is destroyed
+            for(int i = 0; i < cityHitboxes.Length; i++)
+            {
+                cityHitboxes[i] = new Circle(Global.cityPositions[i], cityHitboxSize);
+            }
 
             Global.level = 1;
             Global.points = 0;
@@ -145,11 +149,13 @@ namespace Missile_Command
 
             //Base Texture
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            missileBase = Content.Load<Texture2D>("2D/city01");
-            L = Content.Load<Texture2D>("2D/missile_small");
+            missileBase = Content.Load<Texture2D>("silo");
+            cityTexture = Content.Load<Texture2D>("2D/city02");
 
             Missile.texture = Content.Load<Texture2D>("2D/missile_small");
 
+            Text.setDefaultFont("font");
+            curser.addTexture("curser");
         }
 
         /// <summary>
@@ -178,162 +184,262 @@ namespace Missile_Command
 
             m = Mouse.GetState();
 
+            curser.setPos(m.X-curser.getWidth()/2, m.Y-curser.getHeight()/2);
+
             ///////////////////////////////////////////////     Firing Logic
-
-            if (m.Y < GraphicsDevice.Viewport.Height - minFiringHeight)                                         //Sets minimum height for playerMissiles to be fired from to prevent our playerMissiles from destroying our own bases
+            if(startState)
             {
-
-                if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])
+                if(kb.IsKeyDown(Keys.Space))                                                                                    //Moves from start screen to gameplay if space is pressed
                 {
-                    playerMissiles.Add(new Missile(Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
-                    playerMissilesLeft[0]--;
+                    startState = false;
+                    gameState = true;
                 }
-
-                if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])
-                {
-                    playerMissiles.Add(new Missile(Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y)));
-                    playerMissilesLeft[1]--;
-                }
-
-                if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])
-                {
-                    playerMissiles.Add(new Missile(Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y)));
-                    playerMissilesLeft[2]--;
-                }
-
             }
-
-            ///////////////////////////////////////////////     Enemy Logic
-
-            //Place enemy AI logic here
-
-            if(Global.enemyMissilesLeft > 0 && Global.enemyFireTimer <= 0)
+            else if (gameState)
             {
-                Random rn = new Random();
 
-                int missilesFired = rn.Next(4) + 1;
-                Global.enemyMissilesLeft -= missilesFired;
-
-                for(int i = 0; i < missilesFired; i++)
-                {
-                    enemyMissiles.Add(new Missile(new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), Global.enemyMissileSpeed, baseHitboxes[rn.Next(3)].center));
-                }
-
-                Global.enemyFireTimer = rn.Next(240) + 120;
-            }
-
-
-
-
-            for(int i = 0; i < baseHitboxes.Length; i++)                        //Detects whether any explosions are destroying any bases
-            {
-                if(basesDisabled[i] == false)                                   //Ignore collision on any bases already destroyed
+                if (m.Y < GraphicsDevice.Viewport.Height - minFiringHeight)                                         //Sets minimum height for playerMissiles to be fired from to prevent our playerMissiles from destroying our own bases
                 {
 
-                    for (int a = 0; a < expandingExplosions.Count; a++)                //Compares base hitbox to all currently expanding explosions
+                    if (kb.IsKeyDown(Keys.A) && oldKb.IsKeyUp(Keys.A) && playerMissilesLeft[0] > 0 && !basesDisabled[0])        //Fires from left base
                     {
+                        Missile temp = new Missile(Global.leftBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice);
+                        playerMissiles.Add(temp);
+                        playerMissilesLeft[0]--;
+                    }
 
-                        if(baseHitboxes[i].Intersects(expandingExplosions[a].hitbox))
+                    if (kb.IsKeyDown(Keys.S) && oldKb.IsKeyUp(Keys.S) && playerMissilesLeft[1] > 0 && !basesDisabled[1])        //Fires from middle base
+                    {
+                        Missile temp = new Missile(Global.middleBasePosition, Global.fastPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice);
+                        playerMissiles.Add(temp);
+                        playerMissilesLeft[1]--;
+                    }
+
+                    if (kb.IsKeyDown(Keys.D) && oldKb.IsKeyUp(Keys.D) && playerMissilesLeft[2] > 0 && !basesDisabled[2])        //Fires from right base
+                    {
+                        Missile temp = new Missile(Global.rightBasePosition, Global.slowPlayerMissileSpeed, new Vector2(m.X, m.Y), Color.Blue, GraphicsDevice);
+                        playerMissiles.Add(temp);
+                        playerMissilesLeft[2]--;
+                    }
+
+                }
+
+                ////////////////////////////////////////////////////////////////////////////////////     Enemy Logic
+
+                //Place enemy AI logic here
+
+                if (Global.enemyMissilesLeft > 0 && Global.enemyFireTimer <= 0)
+                {
+                    Random rn = new Random();
+
+                    int missilesFired = rn.Next(4) + 1;
+                    Global.enemyMissilesLeft -= missilesFired;
+
+                    for (int i = 0; i < missilesFired; i++)
+                    {
+                        Vector2 aimVec = Global.targets[rn.Next(Global.targets.Length)];
+
+                        int escapeCase = 0;                                             //Used to prevent this from infinitely looping
+                        while (Global.destroyedTargets.Contains(aimVec) && escapeCase < 100)    //Detects if target has already been destroyed, and if so, changes target
                         {
-                            basesDisabled[i] = true;
-                            break;
+                            aimVec = Global.targets[rn.Next(Global.targets.Length)];
+                            escapeCase++;
                         }
+                        Missile temp = new Missile(new Vector2(rn.Next(GraphicsDevice.Viewport.Width), 0), Global.enemyMissileSpeed, aimVec, Color.Red, GraphicsDevice);
+                        temp.clusterCalc();
+                        enemyMissiles.Add(temp);
                     }
 
-                    for(int a = 0; a < shrinkingExplosions.Count; a++)                //Compares base hitbox to all currently shrinking explosions
-                    {
-                        if(baseHitboxes[i].Intersects(shrinkingExplosions[a].hitbox))
-                        {
-                            basesDisabled[i] = true;
-                            break;
-                        }
-                    }
+                    Global.enemyFireTimer = rn.Next(240) + 120;
                 }
-            }
 
 
 
-            ///////////////////////////////////////////////     Update Logic
 
-            for (int i = 0; i < playerMissiles.Count; i++)
-            {
-                playerMissiles[i].Update();
-                if(playerMissiles[i].willExplode)
+                for (int i = 0; i < baseHitboxes.Length; i++)                        //Detects whether any explosions are destroying any bases
                 {
-                    expandingExplosions.Add(playerMissiles[i].Detonate());
-                    playerMissiles.RemoveAt(i);
-                    i--;
-                }
-            }
+                    if (basesDisabled[i] == false)                                   //Ignore collision on any bases already destroyed
+                    {
 
-            try
-            {
-                for (int i = enemyMissiles.Count-1; i >= 0; i--)
-                {
-                    enemyMissiles[i].Update();
-                    if (enemyMissiles[i].willExplode)
-                    {
-                        expandingExplosions.Add(enemyMissiles[i].Detonate());
-                        enemyMissiles.RemoveAt(i);
-                    }
-                    else
-                    {
-                        for (int a = 0; a < expandingExplosions.Count; a++)
+                        for (int a = 0; a < expandingExplosions.Count; a++)                //Compares base hitbox to all currently expanding explosions
                         {
-                            if (expandingExplosions[a].hitbox.Contains(enemyMissiles[i].position))
+
+                            if (baseHitboxes[i].Intersects(expandingExplosions[a].hitbox))
                             {
-                                expandingExplosions.Add(enemyMissiles[i].Detonate());
-                                enemyMissiles.RemoveAt(i);
-                                break;
-                            }
-                        }
-
-                        for (int a = 0; a < shrinkingExplosions.Count; a++)
-                        {
-                            if (shrinkingExplosions[a].hitbox.Contains(enemyMissiles[i].position))
-                            {
-                                expandingExplosions.Add(enemyMissiles[i].Detonate());
-                                enemyMissiles.RemoveAt(i);
+                                basesDisabled[i] = true;
+                                playerMissilesLeft[i] = 0;
+                                Global.destroyedTargets.Add(baseHitboxes[i].center);
                                 break;
                             }
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Missile removal error");
-            }
 
-            for(int i = 0; i < expandingExplosions.Count; i++)
-            {
-                expandingExplosions[i].Update();
-
-                if(expandingExplosions[i].finishedExpanding)
+                for (int i = 0; i < cityHitboxes.Length; i++)                        //Detects whether any explosions are destroying any cities
                 {
-                    shrinkingExplosions.Add(expandingExplosions[i]);
-                    expandingExplosions.RemoveAt(i);
-                    i--;
+                    if (citiesDestroyed[i] == false)                                   //Ignore collision on any cities already destroyed
+                    {
+
+                        for (int a = 0; a < expandingExplosions.Count; a++)                //Compares city hitbox to all currently expanding explosions
+                        {
+
+                            if (cityHitboxes[i].Intersects(expandingExplosions[a].hitbox))
+                            {
+                                citiesDestroyed[i] = true;
+                                Global.destroyedTargets.Add(cityHitboxes[i].center);
+                                break;
+                            }
+                        }
+                    }
                 }
-            }
 
-            for(int i = 0; i < shrinkingExplosions.Count; i++)
-            {
-                shrinkingExplosions[i].Shrink();
 
-                if(shrinkingExplosions[i].finishedShrinking)
+
+                ////////////////////////////////////////////////////////////////////////////////////     Update Logic
+
+                for (int i = 0; i < playerMissiles.Count; i++)
                 {
-                    shrinkingExplosions.RemoveAt(i);
-                    i--;
+                    playerMissiles[i].Update();
+                    if (playerMissiles[i].willExplode)
+                    {
+                        expandingExplosions.Add(playerMissiles[i].Detonate());
+                        playerMissiles.RemoveAt(i);
+                        i--;
+                    }
                 }
+
+                try
+                {
+                    for (int i = enemyMissiles.Count - 1; i >= 0; i--)
+                    {
+                        enemyMissiles[i].Update();
+                        if (enemyMissiles[i].willExplode && enemyMissiles[i].isClusterMissile == false)
+                        {
+                            expandingExplosions.Add(enemyMissiles[i].Detonate());                   //If so, detonate it and add it to the explosion list
+                            enemyMissiles.RemoveAt(i);
+                        }
+                        else if (enemyMissiles[i].willExplode && enemyMissiles[i].isClusterMissile)
+                        {
+                            Missile[] temp = enemyMissiles[i].ClusterSeparate(GraphicsDevice);
+
+                            foreach (Missile m in temp)
+                            {
+                                enemyMissiles.Add(m);
+                            }
+                            enemyMissiles.RemoveAt(i);
+                        }
+                        else                                                                        //If not, compare the missile to every one of the explosions
+                        {
+                            for (int a = 0; a < expandingExplosions.Count; a++)
+                            {
+                                if (expandingExplosions[a].hitbox.Contains(enemyMissiles[i].position))  //Compare to expanding explosions
+                                {
+                                    expandingExplosions.Add(enemyMissiles[i].Detonate());
+                                    enemyMissiles.RemoveAt(i);
+                                    Global.points += 25;
+                                    break;
+                                }
+                            }
+
+                            for (int a = 0; a < shrinkingExplosions.Count; a++)
+                            {
+                                if (shrinkingExplosions[a].hitbox.Contains(enemyMissiles[i].position))  //Compare to shrinking explosions
+                                {
+                                    expandingExplosions.Add(enemyMissiles[i].Detonate());
+                                    enemyMissiles.RemoveAt(i);
+                                    Global.points += 25;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+#pragma warning disable CS0168 // Variable is declared but never used
+                catch (Exception e)
+#pragma warning restore CS0168 // Variable is declared but never used
+                {
+                    Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
+                }
+
+                for (int i = 0; i < expandingExplosions.Count; i++)
+                {
+                    expandingExplosions[i].Update();
+
+                    if (expandingExplosions[i].finishedExpanding)
+                    {
+                        shrinkingExplosions.Add(expandingExplosions[i]);
+                        expandingExplosions.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                for (int i = 0; i < shrinkingExplosions.Count; i++)
+                {
+                    shrinkingExplosions[i].Shrink();
+
+                    if (shrinkingExplosions[i].finishedShrinking)
+                    {
+                        shrinkingExplosions.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                Global.enemyFireTimer--;
+
+                //////////////////////////////////////////////////////////////////////////////////// POINT AND LEVEL SYSTEM
+                if (enemyMissiles.Count == 0 && expandingExplosions.Count == 0 && shrinkingExplosions.Count == 0 && Global.enemyMissilesLeft <= 0)
+                {
+                    for (int i = 0; i < playerMissilesLeft.Length; i++)                  //Check every silo                                       
+                    {
+                        Global.points += (5 * Global.level * playerMissilesLeft[i]);    //Add points for every missile left
+                    }
+
+                    for (int i = 0; i < citiesDestroyed.Length; i++)                     //Check every city
+                    {
+                        if (!citiesDestroyed[i])                                         //If the city is destroyed...
+                        {
+                            Global.points += (200 * Global.level);                      //...Gain 200 * level points
+                        }
+                    }
+
+                    for (int i = 0; i < basesDisabled.Length; i++)                       //Rebuild the bases and refill them
+                    {
+                        basesDisabled[i] = false;
+                        playerMissilesLeft[i] = 10;
+                        Global.destroyedTargets.Remove(Global.leftBasePosition);
+                        Global.destroyedTargets.Remove(Global.middleBasePosition);
+                        Global.destroyedTargets.Remove(Global.rightBasePosition);
+                    }
+                    Global.level++;
+
+                    Global.enemyMissilesLeft = 10 + (Global.level * 2);
+                    Global.enemyMissileSpeed += 0.2f;
+
+
+
+                    bool gameEnd = true;                                                //End logic
+                        
+                    for(int i = 0; i < citiesDestroyed.Length; i++)                     //Detect if any cities aren't destroyed. If so, game doesn't end
+                    {
+                        if(citiesDestroyed[i] == false)
+                        {
+                            gameEnd = false;
+                            break;
+                        }
+                    }
+
+                    if(gameEnd)                                                         //Changes game state to end state
+                    {
+                        gameState = false;
+                        endState = true;
+                    }
+                }
+
+                pointcounter.content = "Points: " + Global.points;
             }
-
-            Global.enemyFireTimer--;
-
-            ////////// POINT AND LEVEL SYSTEM
-            if(enemyMissiles.Count == 0 && Global.enemyMissilesLeft>0)
+            else if(endState)
             {
-                Global.level++;
+
             }
 
             oldKb = kb;
@@ -352,35 +458,54 @@ namespace Missile_Command
             // TODO: Add your drawing code here
 
             spriteBatch.Begin();
-
-            for(int i = 0; i < playerMissiles.Count; i++)
+            if(startState)
             {
-                playerMissiles[i].Draw(spriteBatch);
-            }
 
-            for(int i = 0; i < enemyMissiles.Count; i++)
+            }
+            else if (gameState)
             {
-                enemyMissiles[i].Draw(spriteBatch);
-            }
 
-            for(int i = 0; i < expandingExplosions.Count; i++)
+                Useful.drawAll(spriteBatch);
+
+                for (int i = 0; i < playerMissiles.Count; i++)
+                {
+                    playerMissiles[i].Draw(spriteBatch);
+                }
+
+                for (int i = 0; i < enemyMissiles.Count; i++)
+                {
+                    enemyMissiles[i].Draw(spriteBatch);
+                }
+
+                for (int i = 0; i < expandingExplosions.Count; i++)
+                {
+                    expandingExplosions[i].Draw(spriteBatch, explosionTexture);
+                }
+
+                for (int i = 0; i < shrinkingExplosions.Count; i++)
+                {
+                    shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
+                }
+
+                for (int i = 0; i < basePos.Length; i++)
+                {
+                    spriteBatch.Draw(missileBase, basePos[i], Color.White);
+                }
+
+                for (int i = 0; i < Global.cityPositions.Length; i++)
+                {
+                    if (!citiesDestroyed[i])
+                    {
+                        Rectangle drawRect = new Rectangle((int)Global.cityPositions[i].X - Global.cityWidth / 2, (int)Global.cityPositions[i].Y - Global.cityHeight / 2,
+                                                            Global.cityWidth, Global.cityHeight);
+                        spriteBatch.Draw(cityTexture, drawRect, Color.White);
+                    }
+                }
+            }
+            else if(endState)
             {
-                expandingExplosions[i].Draw(spriteBatch, explosionTexture);
-            }
 
-            for(int i = 0; i < shrinkingExplosions.Count; i++)
-            {
-                shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
             }
-            //bases
-
-            for (int i = 0; i < missilePos.Length; i++)
-            {
-                spriteBatch.Draw(missileBase, basePos[i], Color.White);
-            }
-
-            //spriteBatch.Draw(L, land1, Color.Gold);
-            //spriteBatch.Draw(L, land2, Color.Gold);
 
             spriteBatch.End();
 

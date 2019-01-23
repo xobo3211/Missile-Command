@@ -79,6 +79,13 @@ namespace Missile_Command
             this.endPos = new Circle(endPos, velocity + 1);     //Creates the end position circle for the missile to collide with
 
             createTrail(g, trailColor);                     //Creates the trail for the missile
+
+            if (startPos.X == endPos.X)                         //Fixes aiming issue with missile. Needs to be called after trail is created for some reason
+            {
+                this.velocity.Y *= -1;
+            }
+
+            Console.WriteLine(this.endPos.center.X);
         }
 
 
