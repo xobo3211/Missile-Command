@@ -280,6 +280,15 @@
       <Output>C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Content\font.xnb</Output>
       <Time>2019-01-18T11:43:39.3146789-06:00</Time>
     </Item>
+    <Item>
+      <Source>plane.png</Source>
+      <Name>plane</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Content\plane.xnb</Output>
+      <Time>2019-01-23T10:57:45.7246488-06:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{8A050CEB-FC49-4CCB-AA1C-ACF460D15482}</ContentProjectGUID>

@@ -148,3 +148,5 @@ C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Co
 C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Content\font.xnb
 C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Missile_Command.exe
 C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Missile_Command.pdb
+C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\bin\x86\Debug\Content\plane.xnb
+C:\Users\238801\Desktop\Visual Studio\Missile Command\Missile Command\Missile_Command\obj\x86\Debug\Missile_Command.csprojResolveAssemblyReference.cache

@@ -307,6 +307,7 @@ namespace Missile_Command
 #pragma warning restore CS0168 // Variable is declared but never used
             {
                 Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
+                Console.WriteLine("Exception source: {0}", e.Source);
             }
 
             for(int i = 0; i < expandingExplosions.Count; i++)
