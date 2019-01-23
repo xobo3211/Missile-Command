@@ -35,6 +35,8 @@ namespace Missile_Command
             }
         }
 
+
+
         public Missile( Vector2 startPos, Vector2 velocity, Circle endPos, Color trailColor, GraphicsDevice g)
         {
             position = startPos;
@@ -74,10 +76,18 @@ namespace Missile_Command
             }
             else rotation += (float)Math.PI / 2;
 
-            this.endPos = new Circle(endPos, velocity);     //Creates the end position circle for the missile to collide with
+            this.endPos = new Circle(endPos, velocity + 1);     //Creates the end position circle for the missile to collide with
 
             createTrail(g, trailColor);                     //Creates the trail for the missile
+
+            if (startPos.X == endPos.X)                         //Fixes aiming issue with missile. Needs to be called after trail is created for some reason
+            {
+                this.velocity.Y *= -1;
+            }
         }
+
+
+
 
         public void Update()
         {

@@ -26,6 +26,7 @@ namespace Missile_Command
         public static int cityWidth = 60, cityHeight = 40;                                  //Controls city dimensions
         public static int missileWidth = 5, missileLength = 8;                              //Controls missile dimensions
         public static int missileTrailWidth = 1;
+        public static int pointsToNextCity = 10000;                                         //Holds the amount of points that need to be earned to get another city
 
         public static HashSet<Vector2> destroyedTargets = new HashSet<Vector2>();           //Contains all currently destroyed city/base positions. Used to keep missiles from being shot at already destroyed areas
 
