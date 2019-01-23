@@ -92,6 +92,11 @@ namespace SureDroid
             //else return (int)((Double)getRegion().Height * scale);
         }
 
+        public void delete()
+        {
+            sprites.Remove(this);
+        }
+
         /// <summary>
         /// Set the effect for a sprite.
         /// </summary>
