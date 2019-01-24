@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 public class Circle
 {
-    public Vector2 center { get; set; }
+    public Vector2 center;
     public float radius { get; set; }
     public float diameter
     {
@@ -35,6 +35,6 @@ public class Circle
 
     public bool Intersects(Circle other)
     {
-        return (other.center - center).Length() < Math.Abs(other.radius - radius);
+        return (other.center - center).Length() < Math.Abs(other.radius + radius);
     }
 }

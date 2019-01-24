@@ -12,59 +12,31 @@ using SureDroid;
 
 namespace Missile_Command
 {
-    public class Bomber : Sprite
+    public class Bomber : Enemy
     {
-        public static List<Bomber> list = new List<Bomber>();
-        static Random rand = new Random();
-        public static Texture2D text;
-        int speed = 1;
-        public Bomber() : base(-10, rand.Next(0, Useful.getWHeight() - 200))
+        public Bomber(Texture2D texture) : base()
         {
-            addTexture(text);
-            list.Add(this);
-            setScale(.2);
-        }
-        
-        public new void update()
-        {
-            translate(speed,0);
-            int x = (int) getPos().X;
-            foreach(Vector2 vec in Global.targets)
-            {
-                if((int) vec.X == x)
-                {
-                    Game1.enemyMissiles.Add(new Missile(getPos(), Global.enemyMissileSpeed, vec, Color.Red, Useful.game.GraphicsDevice));
-                }
-            }
-            for (int a = 0; a < Game1.expandingExplosions.Count; a++)
-            {
-                if (Game1.expandingExplosions[a].hitbox.Contains(getPos()))  //Compare to expanding explosions
-                {
-                    delete();
-                    return;
-                }
-            }
+            speed = 0.9f;
 
-            for (int a = 0; a < Game1.shrinkingExplosions.Count; a++)
-            {
-                if (Game1.shrinkingExplosions[a].hitbox.Contains(getPos()))  //Compare to shrinking explosions
-                {
-                    delete();
-                    return;
-                }
-            }
-            if(x > Useful.getWWidth())
-            {
-                delete();
-                return;
-            }
+            hitbox = new Circle(new Vector2(-30, 110), Global.bomberWidth / 3);
 
+            this.texture = texture;
+
+            Random rn = new Random();
+
+            fireTimer = rn.Next(180) + 180;
         }
 
-        public new void delete()
+        public override Missile Fire(Vector2 target, GraphicsDevice g)
         {
-            base.delete();
-            list.Remove(this);
+            Random rn = new Random();
+            fireTimer = rn.Next(180) + 180;
+            return new Missile(hitbox.center, Global.enemyMissileSpeed, target, Color.Red, g);
+        }
+
+        public override void Draw(SpriteBatch b)
+        {
+            b.Draw(texture, new Rectangle((int)hitbox.center.X - Global.bomberWidth / 2, (int)hitbox.center.Y - Global.bomberHeight / 2, Global.bomberWidth, Global.bomberHeight), Color.White);
         }
     }
 

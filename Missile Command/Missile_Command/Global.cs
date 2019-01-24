@@ -14,9 +14,9 @@ namespace Missile_Command
 {
     public static class Global
     {
-        public const float slowPlayerMissileSpeed = 4f;                                     //Stores outer missile base missile speed
-        public const float fastPlayerMissileSpeed = 8f;                                     //Stores middle missile base speed
-        public static float enemyMissileSpeed = 1f;
+        public const float slowPlayerMissileSpeed = 5f;                                     //Stores outer missile base missile speed
+        public const float fastPlayerMissileSpeed = 10f;                                     //Stores middle missile base speed
+        public static float enemyMissileSpeed = 0.7f;
 
         public static int level;
         public static int points;
@@ -24,7 +24,8 @@ namespace Missile_Command
         public static int enemyFireTimer;                                                   //Counts time until enemy fiers again
         public static int baseWidth = 60, baseHeight = 90;                                  //Controls missile base dimensions
         public static int cityWidth = 60, cityHeight = 40;                                  //Controls city dimensions
-        public static int satelliteWidth = 50, satelliteHeight = 50;
+        public static int satelliteWidth = 50, satelliteHeight = 50;                        //Controls satellite dimensions
+        public static int bomberWidth = 50, bomberHeight = 30;                              //Controls bomber dimensions
         public static int missileWidth = 5, missileLength = 8;                              //Controls missile dimensions
         public static int missileTrailWidth = 1;
         public static int pointsToNextCity = 10000;                                         //Holds the amount of points that need to be earned to get another city

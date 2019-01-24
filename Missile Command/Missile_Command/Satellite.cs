@@ -11,44 +11,31 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Missile_Command
 {
-    class Satellite
+    public class Satellite : Enemy
     {
-        Vector2 position;
-        static float speed = 2f;
-
-        int fireTimer;
-
-        public bool willFire
+        public Satellite(Texture2D texture) : base()
         {
-            get
-            {
-                return fireTimer <= 0;
-            }
-        }
+            speed = 1.3f;
 
-        public Satellite()
-        {
+            hitbox = new Circle(new Vector2(-30, 60), Global.satelliteWidth/2);
+
+            this.texture = texture;
+
             Random rn = new Random();
 
-            position = new Vector2(-30, rn.Next(20) + 20);
-
-            fireTimer = rn.Next(60) + 30;           //Satellite fires every half second to one and a half seconds
+            fireTimer = rn.Next(120) + 120;
         }
 
-        public void Update()
+        public override Missile Fire(Vector2 target, GraphicsDevice g)
         {
-            position.X += speed;
-            fireTimer--;
+            Random rn = new Random();
+            fireTimer = rn.Next(120) + 120;
+            return new Missile(hitbox.center, Global.enemyMissileSpeed, target, Color.Red, g);
         }
 
-        public Missile Fire(Vector2 target, GraphicsDevice g)
+        public override void Draw(SpriteBatch b)
         {
-            return new Missile(position, Global.enemyMissileSpeed, target, Color.Red, g);
-        }
-
-        public void Draw(Texture2D texture, SpriteBatch b)
-        {
-            b.Draw(texture, new Rectangle((int)position.X - Global.satelliteWidth / 2, (int)position.Y - Global.satelliteHeight / 2, Global.satelliteWidth, Global.satelliteHeight), Color.White);
+            b.Draw(texture, new Rectangle((int)hitbox.center.X - Global.satelliteWidth / 2, (int)hitbox.center.Y - Global.satelliteHeight / 2, Global.satelliteWidth, Global.satelliteHeight), Color.White);
         }
     }
 }
