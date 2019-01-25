@@ -24,6 +24,8 @@ namespace Missile_Command
         Sprite curser;
         Text pointcounter;
 
+        SpriteFont text, titleText;
+
         Random rand = new Random();
 
         public static List<Missile> playerMissiles;
@@ -32,11 +34,18 @@ namespace Missile_Command
         public static List<Explosion> expandingExplosions;
         public static List<Explosion> shrinkingExplosions;
 
+        List<Enemy> enemies;
+
+        int enemyMaxSpawns;
+        int enemySpawnTimer;
+
         MouseState m;
         KeyboardState oldKb;
 
         //Base Implementation
         Texture2D missileBase, cityTexture;
+
+        Texture2D satelliteTexture, bomberTexture;
 
         Rectangle[] basePos;
 
@@ -84,6 +93,7 @@ namespace Missile_Command
             enemyMissiles = new List<Missile>(20);
             expandingExplosions = new List<Explosion>(20);
             shrinkingExplosions = new List<Explosion>(20);
+            enemies = new List<Enemy>(10);
 
             //Controls
             m = Mouse.GetState();
@@ -154,11 +164,16 @@ namespace Missile_Command
             missileBase = Content.Load<Texture2D>("silo");
             cityTexture = Content.Load<Texture2D>("2D/city02");
 
+            satelliteTexture = Content.Load<Texture2D>("ufo");
+            bomberTexture = Content.Load<Texture2D>("plane");
+
             Missile.texture = Content.Load<Texture2D>("2D/missile_small");
-            Bomber.text = Useful.getTexture("plane");
 
             Text.setDefaultFont("font");
             curser.addTexture("curser");
+
+            text = Content.Load<SpriteFont>("font");
+            titleText = Content.Load<SpriteFont>("SpriteFont2");
         }
 
         /// <summary>
@@ -228,20 +243,40 @@ namespace Missile_Command
 
                 }
 
-                ////////////////////////////////////////////////////////////////////////////////////     Enemy Logic
+                ////////////////////////////////////////////////////////////////////////////////////     Enemy Spawn Logic
 
-                //Place enemy AI logic here
+                
 
-            if(rand.Next(0,600) == 0)
-            {
-                new Bomber();
-            }
+                if(Global.level > 1 && enemyMaxSpawns > 0)                            //Enemy spawn logic
+                {
+                    enemySpawnTimer++;
 
-            if(Global.enemyMissilesLeft > 0 && Global.enemyFireTimer <= 0)
-            {
-                Random rn = new Random();
+                    if(enemySpawnTimer > 60)                                          //Once every 60 seconds,  calculate if an enemy will spawn, and if so, what kind
+                    {
+                        Random rn = new Random();
+                        int spawnChance = rn.Next(20);
 
-                    int missilesFired = rn.Next(4) + 1;
+                        if(spawnChance == 0 && Global.level > 2)
+                        {
+                            enemies.Add(new Satellite(satelliteTexture));
+                            enemyMaxSpawns--;
+                        }
+                        else if(spawnChance < 3)
+                        {
+                            enemies.Add(new Bomber(bomberTexture));
+                            enemyMaxSpawns--;
+                        }
+                        enemySpawnTimer = 0;
+                        
+                    }
+                }
+
+                ////////////////////////////////////////////////////////////////Enemy Missile Firing Logic
+                if(Global.enemyMissilesLeft > 0 && Global.enemyFireTimer <= 0)
+                {
+                    Random rn = new Random();
+
+                    int missilesFired = rn.Next(Global.level + 1) + 1;
                     Global.enemyMissilesLeft -= missilesFired;
 
                     for (int i = 0; i < missilesFired; i++)
@@ -259,11 +294,11 @@ namespace Missile_Command
                         enemyMissiles.Add(temp);
                     }
 
-                    Global.enemyFireTimer = rn.Next(240) + 120;
+                    Global.enemyFireTimer = rn.Next(120) + 240;
                 }
 
 
-
+                /////////////////////////////////////////////////////Collision detection for bases and cities being destroyed
 
                 for (int i = 0; i < baseHitboxes.Length; i++)                        //Detects whether any explosions are destroying any bases
                 {
@@ -301,11 +336,89 @@ namespace Missile_Command
                         }
                     }
                 }
+                //////////////////////////////////////////////////Collision detection for enemies being destroyed
+                for (int i = enemies.Count - 1; i >= 0; i--)
+                {
+                    bool isAlive = true;
+
+                    for(int a = 0; a < expandingExplosions.Count && isAlive; a++)
+                    {
+                        if(expandingExplosions[a].hitbox.Intersects(enemies[i].hitbox))
+                        {
+                            if(enemies[i].GetType() == typeof(Bomber))              //Checks type of destroyed enemy to see how many points are awarded
+                            {
+                                Global.points += 100 * Global.level;
+                            }
+                            else if(enemies[i].GetType() == typeof(Satellite))
+                            {
+                                Global.points += 125 * Global.level;
+                            }
+
+                            expandingExplosions.Add(enemies[i].Detonate());
+                            enemies.RemoveAt(i);
+                            isAlive = false;
+
+                            break;
+                        }
+                    }
+
+                    for (int a = 0; a < shrinkingExplosions.Count && isAlive; a++)
+                    {
+                        if (shrinkingExplosions[a].hitbox.Intersects(enemies[i].hitbox))
+                        {
+                            if (enemies[i].GetType() == typeof(Bomber))              //Checks type of destroyed enemy to see how many points are awarded
+                            {
+                                Global.points += 100 * Global.level;
+                            }
+                            else if (enemies[i].GetType() == typeof(Satellite))
+                            {
+                                Global.points += 125 * Global.level;
+                            }
+
+                            expandingExplosions.Add(enemies[i].Detonate());
+                            enemies.RemoveAt(i);
+                            isAlive = false;
+                            break;
+                        }
+                    }
+                }
 
 
 
                 ////////////////////////////////////////////////////////////////////////////////////     Update Logic
 
+                for (int i = 0; i < enemies.Count; i++)                                   //Enemy Update Logic
+                {
+                    enemies[i].Update();
+
+                    if(enemies[i].hitbox.center.X + Global.satelliteWidth / 2 > GraphicsDevice.Viewport.Width)
+                    {
+                        enemies.RemoveAt(i);
+                        i--;
+                    }
+                    else if(enemies[i].willFire)
+                    {
+                        Random rn = new Random();
+                        
+                        Vector2 aimVec = Global.targets[rn.Next(Global.targets.Length)];
+
+                        int escapeCase = 0;                                                     //Used to prevent this from infinitely looping
+                        while (Global.destroyedTargets.Contains(aimVec) && escapeCase < 100)    //Detects if target has already been destroyed, and if so, changes target
+                        {
+                            aimVec = Global.targets[rn.Next(Global.targets.Length)];
+                            escapeCase++;
+                        }
+
+                        Missile temp = enemies[i].Fire(aimVec, GraphicsDevice);
+                        temp.clusterCalc();
+
+                        enemyMissiles.Add(temp);
+                    }
+                }
+
+
+
+                /////////////////////////////////////////////////////////////Player missile detonation logic
                 for (int i = 0; i < playerMissiles.Count; i++)
                 {
                     playerMissiles[i].Update();
@@ -317,11 +430,10 @@ namespace Missile_Command
                     }
                 }
 
-            for(int i = Bomber.list.Count - 1; i >= 0; i--)
-            {
-                Bomber.list[i].update();
-            }
 
+
+
+                ///////////////////////////////////////////////////////////Enemy missile collision and detonation logic
             try
             {
                 for (int i = enemyMissiles.Count-1; i >= 0; i--)
@@ -372,16 +484,17 @@ namespace Missile_Command
                 catch (Exception e)
 #pragma warning restore CS0168 // Variable is declared but never used
                 {
-                    Console.WriteLine("Missile removal error");                 //Try-catch needed for draw errors caused by multithreading
+                    Console.WriteLine("Missile removal error");
                 }
 
+                ///////////////////////////////////////////////////////////////Explosion update logic
                 for (int i = 0; i < expandingExplosions.Count; i++)
                 {
-                    expandingExplosions[i].Update();
+                    expandingExplosions[i].Update();                     //Expands all Explosion objects in the list
 
-                    if (expandingExplosions[i].finishedExpanding)
+                    if (expandingExplosions[i].finishedExpanding)        //Compares all Explosion objects to max size and checks if they need to be shrunk
                     {
-                        shrinkingExplosions.Add(expandingExplosions[i]);
+                        shrinkingExplosions.Add(expandingExplosions[i]);    //If so, begin shrinking them
                         expandingExplosions.RemoveAt(i);
                         i--;
                     }
@@ -389,9 +502,9 @@ namespace Missile_Command
 
                 for (int i = 0; i < shrinkingExplosions.Count; i++)
                 {
-                    shrinkingExplosions[i].Shrink();
+                    shrinkingExplosions[i].Shrink();                    //Shrinks all Explosion objects in the list
 
-                    if (shrinkingExplosions[i].finishedShrinking)
+                    if (shrinkingExplosions[i].finishedShrinking)       //Compares all Explosion objects to their min size and checks if they can be removed yet
                     {
                         shrinkingExplosions.RemoveAt(i);
                         i--;
@@ -400,12 +513,12 @@ namespace Missile_Command
 
                 
 
-                if(Global.pointsToNextCity <= 0)                                            //Code for adding back new cities when you reach a certain level of points
+                if(Global.pointsToNextCity <= 0)                          ///////////Code for adding back new cities when you reach a certain level of points
                 {
                     Random rn = new Random();
 
                     int cityIndex = rn.Next(6), defaultCase = 0;
-                    while(citiesDestroyed[cityIndex] == false && defaultCase < 100)
+                    while(citiesDestroyed[cityIndex] == false && defaultCase < 100)     //Adds back a city at random. Default case prevent infinite loop from occuring
                     {
                         cityIndex = rn.Next(6);
                         defaultCase++;
@@ -414,6 +527,8 @@ namespace Missile_Command
                     citiesDestroyed[cityIndex] = false;
                     Global.pointsToNextCity = 10000;
                 }
+
+
 
                 //////////////////////////////////////////////////////////////////////////////////// POINT AND LEVEL SYSTEM
                 if (enemyMissiles.Count == 0 && expandingExplosions.Count == 0 && shrinkingExplosions.Count == 0 && Global.enemyMissilesLeft <= 0)
@@ -446,6 +561,8 @@ namespace Missile_Command
                     Global.enemyMissilesLeft = 10 + (Global.level * 2);
                     Global.enemyMissileSpeed += 0.2f;
 
+                    enemyMaxSpawns = Global.level - 1;
+
                     bool gameEnd = true;                                                //End logic
                         
                     for(int i = 0; i < citiesDestroyed.Length; i++)                     //Detect if any cities aren't destroyed. If so, game doesn't end
@@ -469,7 +586,11 @@ namespace Missile_Command
             }
             else if(endState)
             {
-
+                if (kb.IsKeyDown(Keys.Space))                                                                                    //Moves from start screen to gameplay if space is pressed
+                {
+                    endState = false;
+                    gameState = true;
+                }
             }
 
             oldKb = kb;
@@ -490,7 +611,12 @@ namespace Missile_Command
             spriteBatch.Begin();
             if(startState)
             {
+                spriteBatch.DrawString(titleText, "Missile Command", new Vector2(180, 100), Color.White);
 
+                spriteBatch.DrawString(text, "Press Space to Start", new Vector2(290, 300), Color.White);
+
+                spriteBatch.DrawString(text, "Controls:", new Vector2(340, 500), Color.White);
+                spriteBatch.DrawString(text, "A: Fire Left Missile\nS: Fire Middle Missile\nD: Fire Right Missile\n\nUse the mouse to aim", new Vector2(280, 530), Color.White);
             }
             else if (gameState)
             {
@@ -507,20 +633,26 @@ namespace Missile_Command
                     enemyMissiles[i].Draw(spriteBatch);
                 }
 
-                for (int i = 0; i < expandingExplosions.Count; i++)
+                for(int i = 0; i < enemies.Count; i++)
                 {
-                    expandingExplosions[i].Draw(spriteBatch, explosionTexture);
-                }
-
-                for (int i = 0; i < shrinkingExplosions.Count; i++)
-                {
-                    shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
+                    enemies[i].Draw(spriteBatch);
                 }
 
                 for (int i = 0; i < basePos.Length; i++)
                 {
                     spriteBatch.Draw(missileBase, basePos[i], Color.White);
                 }
+
+
+                for(int i = 0; i < playerMissilesLeft.Length; i++)              //Displays for how many missiles are in each base
+                {
+                    if (playerMissilesLeft[i] == 10)
+                    {
+                        spriteBatch.DrawString(text, playerMissilesLeft[i] + "", baseHitboxes[i].center - new Vector2(10, 0), Color.Blue);
+                    }
+                    else spriteBatch.DrawString(text, playerMissilesLeft[i] + "", baseHitboxes[i].center - new Vector2(5, 0), Color.Blue);
+                }
+
 
                 for (int i = 0; i < Global.cityPositions.Length; i++)
                 {
@@ -531,10 +663,26 @@ namespace Missile_Command
                         spriteBatch.Draw(cityTexture, drawRect, Color.White);
                     }
                 }
+
+                for (int i = 0; i < expandingExplosions.Count; i++)
+                {
+                    expandingExplosions[i].Draw(spriteBatch, explosionTexture);
+                }
+
+                for (int i = 0; i < shrinkingExplosions.Count; i++)
+                {
+                    shrinkingExplosions[i].Draw(spriteBatch, explosionTexture);
+                }
+
+                spriteBatch.DrawString(text, "Level " + Global.level, new Vector2(GraphicsDevice.Viewport.Width - 90, 10), Color.White);
             }
             else if(endState)
             {
+                spriteBatch.DrawString(titleText, "GAME OVER", new Vector2(270, 100), Color.White);
 
+                spriteBatch.DrawString(titleText, Global.points + "", new Vector2(300, 260), Color.White);
+
+                spriteBatch.DrawString(text, "Press Space to play again", new Vector2(260, 400), Color.White);
             }
 
             spriteBatch.End();
