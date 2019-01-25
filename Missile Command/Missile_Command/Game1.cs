@@ -232,7 +232,7 @@ namespace Missile_Command
 
                 //Place enemy AI logic here
 
-            if(rand.Next(0,60) == 0)
+            if(rand.Next(0,600) == 0)
             {
                 new Bomber();
             }

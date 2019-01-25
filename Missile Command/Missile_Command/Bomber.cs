@@ -22,7 +22,8 @@ namespace Missile_Command
         {
             addTexture(text);
             list.Add(this);
-            setScale(.2);
+            setScale(.1);
+            centerOrigin();
         }
         
         public new void update()
@@ -33,7 +34,8 @@ namespace Missile_Command
             {
                 if((int) vec.X == x)
                 {
-                    Game1.enemyMissiles.Add(new Missile(getPos(), Global.enemyMissileSpeed, vec, Color.Red, Useful.game.GraphicsDevice));
+                    if(rand.Next(0,3)==0)
+                        Game1.enemyMissiles.Add(new Missile(getPos(), Global.enemyMissileSpeed, vec, Color.Red, Useful.game.GraphicsDevice));           
                 }
             }
             for (int a = 0; a < Game1.expandingExplosions.Count; a++)
