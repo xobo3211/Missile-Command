@@ -694,7 +694,7 @@ namespace SureDroid
     public static class Useful
     {
         internal static Game game;
-        internal static SpriteBatch spriteBatch;
+        //internal static SpriteBatch spriteBatch;
 
         /// <summary>
         /// Gets the window width of the application. A shortcut for GraphicsDevice.Viewport.Width.

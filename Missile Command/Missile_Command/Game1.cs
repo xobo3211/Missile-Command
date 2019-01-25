@@ -354,7 +354,7 @@ namespace Missile_Command
                             }
                             else if(enemies[i].GetType() == typeof(Satellite))
                             {
-                                Global.points += 125 * Global.level;
+                                Global.points += 150 * Global.level;
                             }
 
                             expandingExplosions.Add(enemies[i].Detonate());
