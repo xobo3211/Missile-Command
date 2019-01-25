@@ -32,3 +32,4 @@ Content\plane.xnb
 Content\ufo.xnb
 Content\font.xnb
 Content\SpriteFont2.xnb
+Content\space.xnb
